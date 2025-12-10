@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNI CONFLUENCE 2026 | The Future of Business</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bni: {
+                            red: '#E10028',
+                            dark: '#111111',
+                            gray: '#1F1F1F',
+                            light: '#F3F3F3',
+                            accent: '#FF4D6D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Anton', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CONFIG-STYLE UTILITIES */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f3f4f6; 
+            color: #111;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Mode Overrides */
+        .dark body {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Bento Grid Cards - Light/Dark transition */
+        .bento-card-bg {
+            background-color: #ffffff;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .dark .bento-card-bg {
+            background-color: #1F1F1F;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .bento-card-dark-bg {
+            background-color: #111;
+        }
+        .dark .bento-card-dark-bg {
+            background-color: #111;
+        }
+
+        /* Hover Effect */
+        .bento-card {
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .dark .bento-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Floating Nav - FIXED SIZE */
+        .floating-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,0,0,0.1);
+            min-height: 56px;
+        }
+        .dark .floating-nav {
+            background: rgba(31, 31, 31, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            min-height: 56px;
+        }
+
+        /* Logo spacing fix */
+        @media (max-width: 1024px) {
+            .floating-nav {
+                min-height: 48px;
+            }
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            position: relative;
+        }
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+        .marquee-content span {
+            padding-right: 50px;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Blob Animation */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
+            animation: move 10s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.1); }
+        }
+
+        /* VIMEO VIDEO INTEGRATION */
+        .video-bg-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            border-radius: 2rem;
+            background-color: #000;
+        }
+        
+        .video-bg-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 177.77777778vh;
+            min-width: 100%;
+            min-height: 100%;
+            height: 56.25vw;
+            transform: translate(-50%, -50%) scale(1.2);
+            pointer-events: none;
+        }
+
+        /* Mobile Fixes for Video */
+        @media (max-width: 768px) {
+            .video-bg-container iframe {
+                width: 300%; 
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1);
+                height: 100%;
+                opacity: 0.6;
+            }
+        }
+        
+        .card-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0.2) 100%);
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        .dark .card-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.4) 100%);
+        }
+
+        /* Flip Cards */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            min-height: 300px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 2rem;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        /* Light/Dark styles for Flip Cards */
+        .flip-card-front {
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,0.1);
+            color: #000;
+        }
+        .dark .flip-card-front {
+            background-color: #1F1F1F;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #fff;
+        }
+
+        .flip-card-back {
+            background-color: #E10028;
+            color: white;
+            transform: rotateY(180deg);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Utility */
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        /* Feature Grid Card Styles */
+        .feature-card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .feature-item {
+            background-color: rgba(0,0,0,0.03);
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+        .dark .feature-item {
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        /* TEXT COLOR FIXES - COMPREHENSIVE */
+        /* Primary Text */
+        .text-primary {
+            color: #111111;
+        }
+        .dark .text-primary {
+            color: #ffffff;
+        }
+
+        /* Secondary Text */
+        .text-secondary {
+            color: #6b7280;
+        }
+        .dark .text-secondary {
+            color: #9ca3af;
+        }
+
+        /* Nav Links */
+        .nav-link {
+            color: #374151;
+        }
+        .dark .nav-link {
+            color: #d1d5db;
+        }
+
+        /* Headings */
+        h1, h2, h3, h4, h5, h6 {
+            color: #111111;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+            color: #ffffff;
+        }
+
+        /* Override specific text colors */
+        .feature-item h4 {
+            color: #111111;
+        }
+        .dark .feature-item h4 {
+            color: #ffffff;
+        }
+
+        .feature-item p {
+            color: #6b7280;
+        }
+        .dark .feature-item p {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6 min-h-screen transition-colors duration-300 relative">
+
+    <!-- FLOATING LOGO (Top Left) - INCREASED SPACING -->
+    <a href="#" class="fixed top-6 left-6 md:left-10 z-50 transition-transform hover:scale-105">
+        <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/2-300.png" alt="Logo Light" class="block dark:hidden h-12 md:h-16 w-auto object-contain drop-shadow-lg">
+        <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/1-300.png" alt="Logo Dark" class="hidden dark:block h-12 md:h-16 w-auto object-contain drop-shadow-lg">
+    </a>
+
+    <!-- FLOATING NAV (Centered) - FIXED SIZE WITH PROPER SPACING -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-40 floating-nav px-3 py-2 rounded-full flex items-center shadow-2xl" style="gap: 1rem; max-width: 90vw; margin-left: 0;">
+        
+        <div class="hidden lg:flex items-center gap-1 px-2">
+            <a href="#about" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Why Attend</a>
+            <a href="#speakers" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Speakers</a>
+            <a href="#sponsors" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Sponsors</a>
+            <a href="#agenda" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Agenda</a>
+        </div>
+        
+        <!-- Toggle Dark/Light -->
+        <button id="theme-toggle" class="p-2 w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition text-gray-800 dark:text-white flex-shrink-0">
+            <i class="fas fa-sun hidden dark:block"></i>
+            <i class="fas fa-moon block dark:hidden"></i>
+        </button>
+
+        <a href="https://link.confluence2026.com/Visitor-Booking" target="_blank" class="px-4 md:px-6 py-2 bg-bni-red text-white rounded-full font-bold text-xs md:text-sm hover:bg-red-700 transition whitespace-nowrap flex-shrink-0">
+            Get Tickets
+        </a>
+    </nav>
+
+    <!-- BACKGROUND BLOBS -->
+    <div class="blob bg-bni-red w-96 h-96 top-0 left-0 rounded-full mix-blend-multiply dark:mix-blend-normal"></div>
+    <div class="blob bg-blue-600 w-96 h-96 bottom-0 right-0 rounded-full animation-delay-2000 mix-blend-multiply dark:mix-blend-normal"></div>
+
+    <!-- MAIN BENTO GRID HERO -->
+    <header class="relative z-10 pt-24 pb-4 max-w-[1600px] mx-auto">
+        
+        <!-- Top Row: Title & Date -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
+            
+            <!-- Main Title Card with VIDEO BACKGROUND -->
+            <div class="lg:col-span-8 bento-card-bg rounded-4xl p-8 md:p-12 flex flex-col justify-between min-h-[500px] bento-card relative overflow-hidden group">
+                
+                <!-- VIMEO VIDEO - No errors by using proper embed -->
+                <div class="video-bg-container">
+                    <iframe src="https://player.vimeo.com/video/1130984906?background=1&autoplay=1&loop=1&muted=1&controls=0" frameborder="0" allow="autoplay; fullscreen" title="Confluence Drone Shot" allowfullscreen></iframe>
+                </div>
+                <!-- Dark Overlay -->
+                <div class="card-overlay"></div>
+
+                <div class="relative z-20 text-white">
+                    <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-white/20 text-sm mb-6 bg-black/40 backdrop-blur-md">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        Hosted by BNI Lakshya
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.0] mb-4 text-shadow text-white">
+                        THE FUTURE OF<br>
+                        BUSINESS IS <span class="text-bni-red">HAPPENING HERE.</span>
+                    </h1>
+                    
+                    <!-- Stats Row -->
+                    <div class="mt-8 flex flex-wrap gap-4 md:gap-8 border-t border-white/20 pt-6">
+                        <div>
+                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">5000+</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wider">Visitors</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">1000+</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wider">Entrepreneurs</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">120+</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wider">Stalls</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">2 Days</div>
+                            <div class="text-xs text-gray-300 uppercase tracking-wider">Power Networking</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Column: Date & CTAs -->
+            <div class="lg:col-span-4 flex flex-col gap-4">
+                <!-- Date Card -->
+                <div class="bg-bni-red rounded-4xl p-8 flex flex-col justify-center items-center text-center bento-card relative overflow-hidden text-white">
+                    <h2 class="text-5xl font-black mb-2 text-white">JAN 21-22</h2>
+                    <p class="text-xl font-medium opacity-90">2026 • PUNE, INDIA</p>
+                    <div class="mt-6 px-6 py-3 bg-black/30 backdrop-blur-sm rounded-xl w-full">
+                        <div class="text-xs uppercase tracking-widest opacity-70 mb-1">Liftoff In</div>
+                        <div class="text-2xl font-mono font-bold text-white" id="countdown">LOADING...</div>
+                    </div>
+                </div>
+                
+                <!-- CTA Stack -->
+                <div class="bento-card-bg rounded-4xl p-6 flex-1 flex flex-col gap-3 justify-center bento-card">
+                    <a href="https://link.confluence2026.com/Member-Registration" class="group flex items-center justify-between p-4 bg-gray-100 dark:bg-white text-black rounded-2xl font-bold hover:bg-gray-200 transition border border-gray-200 dark:border-transparent" target="_blank">
+                        <span>Register as Member</span>
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition"></i>
+                    </a>
+                    <a href="https://link.confluence2026.com/Book-Stall" class="group flex items-center justify-between p-4 bg-white dark:bg-bni-dark border border-gray-200 dark:border-white/20 rounded-2xl font-bold text-gray-900 dark:text-white hover:bg-bni-red hover:border-bni-red hover:text-white transition" target="_blank">
+                        <span>Book Your Stall</span>
+                        <i class="fas fa-store transform group-hover:translate-x-1 transition"></i>
+                    </a>
+                    <a href="https://link.confluence2026.com/Visitor-Booking" class="group flex items-center justify-between p-4 bg-white dark:bg-bni-dark border border-gray-200 dark:border-white/20 rounded-2xl font-bold text-gray-900 dark:text-white hover:bg-blue-600 hover:border-blue-600 hover:text-white transition" target="_blank">
+                        <span>Get Visitor Pass</span>
+                        <i class="fas fa-ticket-alt transform group-hover:translate-x-1 transition"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANGLED MARQUEE -->
+        <div class="marquee-container border-y border-black/10 dark:border-white/10 bg-white dark:bg-bni-dark py-4 rotate-2 scale-105 my-12">
+            <div class="marquee-content text-4xl md:text-6xl font-display uppercase text-transparent" style="-webkit-text-stroke: 1px rgba(254, 254, 254, 0.778); -webkit-text-stroke-width: 1px; color: transparent;">
+                <span>• Impact • Innovation • Insights • Collaboration • Growth • Strategy • Networking • Scale • Leadership • Learning • Impact • Innovation • Insights • Collaboration • Growth • Strategy</span>
+                <span>• Impact • Innovation • Insights • Collaboration • Growth • Strategy • Networking • Scale • Leadership • Learning • Impact • Innovation • Insights • Collaboration • Growth • Strategy</span>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- ENHANCED STAKEHOLDER SECTION -->
+    <section id="about" class="max-w-[1600px] mx-auto mb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- FOR EXHIBITORS -->
+            <div class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-orange-500/50 transition group bento-card relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+                
+                <span class="inline-block px-3 py-1 rounded-full border border-orange-500 text-orange-500 text-xs font-bold uppercase tracking-wider mb-6">For Exhibitors</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Dominate<br>The Floor</h2>
+                
+                <div class="feature-card-grid mb-10">
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🚀</div>
+                        <h4 class="font-bold text-sm mb-1">Digital Footprint</h4>
+                        <p class="text-xs text-secondary">Website & Newsletter listing worth ₹1L.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🤝</div>
+                        <h4 class="font-bold text-sm mb-1">Qualified Leads</h4>
+                        <p class="text-xs text-secondary">Access 5,000+ entrepreneurs.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">📸</div>
+                        <h4 class="font-bold text-sm mb-1">Content Factory</h4>
+                        <p class="text-xs text-secondary">6 months of content in 2 days.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🌐</div>
+                        <h4 class="font-bold text-sm mb-1">Expand Reach</h4>
+                        <p class="text-xs text-secondary">Inter-chapter lead generation.</p>
+                    </div>
+                </div>
+                
+                <a href="https://link.confluence2026.com/Book-Stall" class="block w-full text-center bg-gray-100 dark:bg-white text-black py-4 rounded-2xl font-bold hover:bg-orange-500 hover:text-white transition" target="_blank">Register as Exhibitor</a>
+            </div>
+
+            <!-- FOR VISITORS -->
+            <div class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-blue-500/50 transition group bento-card relative overflow-hidden">
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+                
+                <span class="inline-block px-3 py-1 rounded-full border border-blue-500 text-blue-500 text-xs font-bold uppercase tracking-wider mb-6">For Visitors</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Expand<br>Your Network</h2>
+                
+                <div class="feature-card-grid mb-10">
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <h4 class="font-bold text-sm mb-1">Speed Networking</h4>
+                        <p class="text-xs text-secondary">1 Event = 6 Months of meetings.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🔓</div>
+                        <h4 class="font-bold text-sm mb-1">Open Access</h4>
+                        <p class="text-xs text-secondary">Non-BNI members welcome.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">✅</div>
+                        <h4 class="font-bold text-sm mb-1">Vendor Empanelment</h4>
+                        <p class="text-xs text-secondary">Find verified partners.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">📈</div>
+                        <h4 class="font-bold text-sm mb-1">Scale Up</h4>
+                        <p class="text-xs text-secondary">Learn from region's best.</p>
+                    </div>
+                </div>
+                
+                <a href="https://link.confluence2026.com/Visitor-Booking" class="block w-full text-center border border-gray-200 dark:border-white/20 text-gray-900 dark:text-white py-4 rounded-2xl font-bold hover:bg-blue-600 hover:border-blue-600 hover:text-white transition" target="_blank">Get Visitor Pass</a>
+            </div>
+
+            <!-- FOR SPONSORS -->
+            <div class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-bni-red/50 transition group bento-card relative overflow-hidden">
+                <span class="inline-block px-3 py-1 rounded-full border border-bni-red text-bni-red text-xs font-bold uppercase tracking-wider mb-6">For Sponsors</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Unmatched<br>Visibility</h2>
+                
+                <div class="feature-card-grid mb-10">
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">👑</div>
+                        <h4 class="font-bold text-sm mb-1">Brand Dominance</h4>
+                        <p class="text-xs text-secondary">Showcase to Pune's elite.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">📢</div>
+                        <h4 class="font-bold text-sm mb-1">Ecosystem Reach</h4>
+                        <p class="text-xs text-secondary">Digital & Physical presence.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🤝</div>
+                        <h4 class="font-bold text-sm mb-1">Direct Access</h4>
+                        <p class="text-xs text-secondary">Connect with 1000+ owners.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">💎</div>
+                        <h4 class="font-bold text-sm mb-1">Premium Trust</h4>
+                        <p class="text-xs text-secondary">Position as a market leader.</p>
+                    </div>
+                </div>
+                
+                <a href="https://view.labdox.com/C26-TS" class="block w-full text-center border border-gray-200 dark:border-white/20 text-gray-900 dark:text-white py-4 rounded-2xl font-bold hover:bg-bni-red hover:border-bni-red hover:text-white transition" target="_blank">Become a Sponsor</a>
+            </div>
+
+            <!-- FOR MEMBERS -->
+            <div class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-purple-500/50 transition group bento-card relative overflow-hidden">
+                <span class="inline-block px-3 py-1 rounded-full border border-purple-500 text-purple-500 text-xs font-bold uppercase tracking-wider mb-6">For Members</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Member<br>Exclusive</h2>
+                
+                <div class="feature-card-grid mb-10">
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🎤</div>
+                        <h4 class="font-bold text-sm mb-1">All Access</h4>
+                        <p class="text-xs text-secondary">Keynotes, Panels & Expo.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🏆</div>
+                        <h4 class="font-bold text-sm mb-1">Awards Night</h4>
+                        <p class="text-xs text-secondary">Exclusive gala entry.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">🚀</div>
+                        <h4 class="font-bold text-sm mb-1">Cross-Chapter</h4>
+                        <p class="text-xs text-secondary">Build ties across regions.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <h4 class="font-bold text-sm mb-1">Priority Pass</h4>
+                        <p class="text-xs text-secondary">Skip the lines.</p>
+                    </div>
+                </div>
+                
+                <a href="https://link.confluence2026.com/Member-Registration" class="block w-full text-center bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition" target="">Member Registration</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SPEAKERS SECTION -->
+    <section id="speakers" class="max-w-[1600px] mx-auto mb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Section Title -->
+            <div class="bento-card-bg rounded-4xl p-8 flex flex-col justify-center min-h-[300px]">
+                <h2 class="text-4xl font-bold mb-4 text-primary">The<br>Speakers</h2>
+                <p class="text-sm text-secondary">Industry titans sharing playbooks for scale.</p>
+                <!-- <a href="#" class="mt-6 w-12 h-12 border border-black/20 dark:border-white/20 rounded-full flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition text-gray-900 dark:text-white">
+                    <i class="fas fa-plus"></i>
+                </a> -->
+            </div>
+
+            <!-- Speaker 1 -->
+            <div class="group relative bento-card-bg rounded-4xl overflow-hidden min-h-[400px] bento-card cursor-pointer">
+                <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/sneha-choudhry-women-entrepreneurs-in-india-startuptalky-300.jpg" alt="Neha Desai" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 dark:opacity-60 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold text-white">Neha Desai</h3>
+                    <p class="text-bni-red font-medium text-sm">Leadership Coach</p>
+                </div>
+            </div>
+
+            <!-- Speaker 2 -->
+            <div class="group relative bento-card-bg rounded-4xl overflow-hidden min-h-[400px] bento-card cursor-pointer">
+                <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/bill-gates.jpeg" alt="Rajesh Patel" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 dark:opacity-60 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold text-white">Rajesh Patel</h3>
+                    <p class="text-bni-red font-medium text-sm">Business Mentor</p>
+                </div>
+            </div>
+
+            <!-- Speaker 3 -->
+            <div class="group relative bento-card-bg rounded-4xl overflow-hidden min-h-[400px] bento-card cursor-pointer">
+                <img src="https://media.swipepages.com/2025/11/5fda04ca24805a0013dd41fb/amit-kothari.jpeg" alt="Amit Kumar" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-90 dark:opacity-60 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6 text-white">
+                    <h3 class="text-2xl font-bold text-white">Amit Kumar</h3>
+                    <p class="text-bni-red font-medium text-sm">Networking Expert</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPONSORS SWIVEL SECTION -->
+    <section id="sponsors" class="max-w-[1600px] mx-auto mb-4">
+        <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-bni-red/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div class="text-center mb-10">
+                <span class="text-bni-red font-bold tracking-widest text-xs uppercase">Powering The Event</span>
+                <h2 class="text-4xl font-bold mt-2 text-primary">Our Sponsors</h2>
+                <p class="text-sm mt-2 text-secondary">Hover over cards to connect</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Sponsor 1 -->
+                <div class="flip-card cursor-pointer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/anant-urban-co-op--300.png" alt="Anant Urban" class="h-20 object-contain mb-4">
+                            <h3 class="font-bold text-lg text-primary">Anant Urban</h3>
+                            <p class="text-sm text-secondary">Title Sponsor</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="font-bold text-xl mb-2 text-white">Anant Urban</h3>
+                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Banking & Finance</p>
+                            <a href="#" class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sponsor 2 -->
+                <div class="flip-card cursor-pointer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                             <div class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-building text-3xl text-black"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-primary">Kohinoor Group</h3>
+                            <p class="text-sm text-secondary">Powered By</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="font-bold text-xl mb-2 text-white">Kohinoor Group</h3>
+                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Real Estate</p>
+                            <a href="#" class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sponsor 3 -->
+                <div class="flip-card cursor-pointer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-car text-3xl text-black"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-primary">B.U. Bhandari</h3>
+                            <p class="text-sm text-secondary">Automotive Partner</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="font-bold text-xl mb-2 text-white">B.U. Bhandari</h3>
+                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Automotive</p>
+                            <a href="#" class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sponsor 4 -->
+                <div class="flip-card cursor-pointer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                             <div class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-laptop-code text-3xl text-black"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-primary">TechNova</h3>
+                            <p class="text-sm text-secondary">Tech Partner</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="font-bold text-xl mb-2 text-white">TechNova</h3>
+                            <p class="text-sm font-medium opacity-90 mb-4 text-white">IT Services</p>
+                            <a href="#" class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section id="agenda" class="max-w-[1600px] mx-auto mb-4 grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Day 1 -->
+        <div class="lg:col-span-6 bento-card-bg rounded-4xl p-8 md:p-12 bento-card">
+            <div class="flex justify-between items-start mb-8">
+                <h3 class="text-6xl font-black text-white-100 dark:text-white-500">01</h3>
+                <div class="text-right">
+                    <div class="text-2xl font-bold text-primary">JAN 21</div>
+                    <div class="text-sm font-medium text-secondary">WEDNESDAY</div>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="flex gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 transition">
+                    <div class="font-mono font-bold text-sm w-16 pt-1 text-primary">09:00</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-primary">Opening Ceremony</h4>
+                        <p class="text-sm text-secondary">Mayfield Estate.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 transition">
+                    <div class="font-mono font-bold text-sm w-16 pt-1 text-primary">11:00</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-primary">Keynote: Future Tech</h4>
+                        <p class="text-sm text-secondary">Anant Urban Co-op.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-4 rounded-2xl bg-gray-900 text-white hover:bg-black transition shadow-lg transform scale-100">
+                    <div class="font-mono font-bold text-sm w-16 pt-1 text-bni-red">19:00</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-white">Gala Awards Night</h4>
+                        <p class="text-sm text-gray-400">Members Only.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="lg:col-span-6 bento-card-bg rounded-4xl p-8 md:p-12 bento-card border border-white/5">
+            <div class="flex justify-between items-start mb-8">
+                <h3 class="text-6xl font-black text-white-100 dark:text-white-500">02</h3>
+                <div class="text-right">
+                    <div class="text-2xl font-bold text-primary">JAN 22</div>
+                    <div class="text-sm font-medium text-secondary">THURSDAY</div>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="flex gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 hover:bg-white/50 dark:hover:bg-white/10 transition border border-gray-200 dark:border-white/5">
+                    <div class="font-mono font-bold text-sm w-16 pt-1 text-bni-red">10:00</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-primary">Speed Networking</h4>
+                        <p class="text-sm text-secondary">High-velocity connection.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 hover:bg-white/50 dark:hover:bg-white/10 transition border border-gray-200 dark:border-white/5">
+                    <div class="font-mono font-bold text-sm w-16 pt-1 text-primary">14:00</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-primary">Expo Walkthrough</h4>
+                        <p class="text-sm text-secondary">Visit 125+ stalls.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER WITH BACKGROUND MARQUEE -->
+    <footer class="max-w-[1600px] mx-auto bg-bni-red text-white rounded-4xl p-12 md:p-24 text-center relative overflow-hidden">
+        
+        <!-- Marquee BG Container -->
+        <div class="absolute inset-0 flex flex-col justify-center opacity-10 pointer-events-none select-none">
+            <div class="marquee-container">
+                <div class="marquee-content text-9xl font-display uppercase text-black">
+                    <span>Impact • Innovation • Insights • Collaboration • Growth • Strategy • </span>
+                    <span>Impact • Innovation • Insights • Collaboration • Growth • Strategy • </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foreground Content -->
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            
+            <!-- Left Side: Large Logo -->
+            <div class="flex flex-col items-center md:items-start justify-center h-full">
+                <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/1-300.png" alt="Confluence Logo Light" class="block dark:hidden w-3/4 max-w-sm object-contain mb-6">
+                <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/1-300.png" alt="Confluence Logo Dark" class="hidden dark:block w-3/4 max-w-sm object-contain mb-6">
+                
+                <h2 class="text-3xl md:text-5xl font-black mb-4 text-center text-white">READY TO CONVERGE?</h2>
+                <a href="mailto:arrive@confluence2026.com" class="text-xl font-bold underline decoration-4 underline-offset-4 hover:opacity-80 text-white">arrive@confluence2026.com</a>
+            </div>
+
+            <!-- Right Side: Links -->
+            <div class="grid grid-cols-2 gap-8 text-left border-l border-white/20 pl-8 md:pl-16">
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Event</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#about" class="hover:underline text-white">About</a></li>
+                        <li><a href="#speakers" class="hover:underline text-white">Speakers</a></li>
+                        <li><a href="#agenda" class="hover:underline text-white">Agenda</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Download</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="https://view.labdox.com/C26-TS" class="hover:underline text-white">Sponsor Deck</a></li>
+                        <li><a href="https://view.labdox.com/C26-TS" class="hover:underline text-white">Exhibitor Kit</a></li>
+                        <li><a href="#" class="hover:underline text-white">Logo Assets</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Register</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="https://link.confluence2026.com/Member-Registration" class="hover:underline text-white">BNI Members</a></li>
+                        <li><a href="https://link.confluence2026.com/Visitor-Booking" class="hover:underline text-white">Visitors</a></li>
+                        <li><a href="https://link.confluence2026.com/Book-Stall" class="hover:underline text-white">Exhibitors</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Socials</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#" class="hover:underline text-white">Instagram</a></li>
+                        <li><a href="#" class="hover:underline text-white">LinkedIn</a></li>
+                        <li><a href="#" class="hover:underline text-white">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        <div class="mt-12 text-sm opacity-60 text-center relative z-20 text-white">
+            © 2026 BNI Confluence. Hosted by BNI Lakshya Chapter.
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. COUNTDOWN TIMER
+        const countDownDate = new Date("Jan 21, 2026 09:00:00").getTime();
+        const countdownTimer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m`;
+        }, 1000);
+
+        // 2. THEME TOGGLE LOGIC
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+    </script>
+</body>
+</html>
