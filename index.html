@@ -125,6 +125,17 @@
         .marquee-content span {
             padding-right: 50px;
         }
+        
+        /* Marquee text stroke - adapts to light/dark mode */
+        .marquee-content {
+            -webkit-text-stroke: 1px rgba(14, 6, 6, 0.719);
+            color: transparent;
+        }
+        .dark .marquee-content {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent;
+        }
+        
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -422,7 +433,7 @@
 
         <!-- ANGLED MARQUEE -->
         <div class="marquee-container border-y border-black/10 dark:border-white/10 bg-white dark:bg-bni-dark py-4 rotate-2 scale-105 my-12">
-            <div class="marquee-content text-4xl md:text-6xl font-display uppercase text-transparent" style="-webkit-text-stroke: 1px rgba(254, 254, 254, 0.778); -webkit-text-stroke-width: 1px; color: transparent;">
+            <div class="marquee-content text-4xl md:text-6xl font-display uppercase text-transparent">
                 <span>• Impact • Innovation • Insights • Collaboration • Growth • Strategy • Networking • Scale • Leadership • Learning • Impact • Innovation • Insights • Collaboration • Growth • Strategy</span>
                 <span>• Impact • Innovation • Insights • Collaboration • Growth • Strategy • Networking • Scale • Leadership • Learning • Impact • Innovation • Insights • Collaboration • Growth • Strategy</span>
             </div>
