@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
@@ -297,7 +297,7 @@
     <footer class="max-w-[1600px] mx-auto bg-bni-red text-white rounded-4xl p-8 md:p-12 text-center relative overflow-hidden mt-6">
         <div class="relative z-10">
             <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/1-300.png" alt="BNI Logo" class="h-16 mx-auto mb-6 drop-shadow-lg">
-            <p class="text-sm opacity-80">Â© 2026 BNI Confluence. Hosted by BNI Lakshya Chapter.</p>
+            <p class="text-sm opacity-80">© 2026 BNI Confluence. Hosted by BNI Lakshya Chapter.</p>
         </div>
     </footer>
 
@@ -357,7 +357,7 @@
 
             try {
                 // Fetch data from Apps Script
-                const response = await fetch(`${APPS_SCRIPT_URL}?letter=${currentLetter}`);
+                const response = await fetch(`${APPS_SCRIPT_URL}?letter=${currentLetter}&_t=${Date.now()}`);
                 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
