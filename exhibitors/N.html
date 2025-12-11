@@ -356,14 +356,36 @@
             exhibitorsGrid.classList.add('hidden');
 
             try {
-                // Fetch data from Apps Script
-                const response = await fetch(`${APPS_SCRIPT_URL}?letter=${currentLetter}&_t=${Date.now()}`);
+                // Fetch data from Apps Script with proper settings for Google redirect
+                const url = `${APPS_SCRIPT_URL}?letter=${currentLetter}&_t=${Date.now()}`;
+                console.log('Fetching from:', url);
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    redirect: 'follow',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+                
+                console.log('Response status:', response.status);
                 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json();
+                const text = await response.text();
+                console.log('Raw response:', text);
+                
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    throw new Error('Invalid JSON response');
+                }
+
+                console.log('Parsed data:', data);
 
                 // Hide loading
                 loadingState.classList.add('hidden');

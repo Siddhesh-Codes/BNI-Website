@@ -17,6 +17,12 @@
  * 9. Copy the Web App URL and paste it in your HTML files
  *    (Replace 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE')
  * 
+ * IMPORTANT: After making ANY changes to this script:
+ * - Go to Deploy > Manage deployments
+ * - Click edit (pencil icon) on your deployment
+ * - Change "Version" to "New version"
+ * - Click "Deploy"
+ * 
  * SHEET STRUCTURE:
  * Your Google Sheet should have these columns:
  * - Column A: Mail (Email address)
@@ -49,6 +55,9 @@ const COL_PERSON_NAME = 2;  // Column C (Name)
  * @returns {TextOutput} JSON response
  */
 function doGet(e) {
+  // Disable caching to always get fresh data
+  const cache = CacheService.getScriptCache();
+  
   try {
     // Get the letter parameter from the request
     const letter = e.parameter.letter ? e.parameter.letter.toUpperCase() : null;
@@ -66,13 +75,14 @@ function doGet(e) {
       });
     }
     
-    // Get exhibitors for the specified letter
+    // Get exhibitors for the specified letter (always fresh from sheet)
     const exhibitors = getExhibitorsByLetter(letter);
     
     return createJsonResponse({
       letter: letter,
       count: exhibitors.length,
-      exhibitors: exhibitors
+      exhibitors: exhibitors,
+      timestamp: new Date().toISOString()
     });
     
   } catch (error) {
