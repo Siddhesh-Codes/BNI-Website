@@ -452,61 +452,8 @@
 
         // Load exhibitors on page load
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if Apps Script URL is configured
-            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwzP97BxCSviYIQDzVglVzgiXmO4_pLxjichvV9ArphjT04syy417OoflcwvaanikOFqg/exec') {
-                // For demo/development, show sample data
-                showDemoData();
-            } else {
-                loadExhibitors();
-            }
+            loadExhibitors();
         });
-
-        // Demo data for testing (remove in production)
-        function showDemoData() {
-            const loadingState = document.getElementById('loading-state');
-            const exhibitorsGrid = document.getElementById('exhibitors-grid');
-            const exhibitorCount = document.getElementById('exhibitor-count');
-            const emptyState = document.getElementById('empty-state');
-
-            loadingState.classList.add('hidden');
-
-            // Sample data based on current letter
-            const sampleData = {
-                'A': [
-                    { name: 'AKSN Infotech', personName: 'Sagar Nagul', email: 'sagar.aksninfotech@gmail.com' },
-                    { name: 'Arihant Electric Corporation', personName: 'Nikit Oswal', email: 'nikitoswal07@gmail.com' },
-                    { name: 'ARGIO PRIVATE LIMITED', personName: 'Atharva Raje', email: 'atharva.argio@gmail.com' },
-                    { name: 'Arham Gold', personName: 'Neha Jain', email: 'nehajain92007.nj@gmail.com' },
-                    { name: 'Arihant Plywood', personName: 'Virang Jain', email: 'virang.jain2@gmail.com' },
-                    { name: 'AURUM BUILDTECH SOLUTIONS', personName: 'PARESH PADIA', email: 'aurumbuildtechsolutions@gmail.com' }
-                ],
-                'V': [
-                    { name: 'VISO YASHARAM CORP LLP', personName: 'VIRAJ AWHALAE', email: 'ssopan123@gmail.com' }
-                ],
-                'B': [
-                    { name: 'Beige and Bleu by Samreen', personName: 'Samreen Arora Malhotra', email: 'samreenarora@gmail.com' }
-                ]
-            };
-
-            const exhibitors = sampleData[currentLetter] || [];
-
-            if (exhibitors.length === 0) {
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-                exhibitorCount.textContent = 'No exhibitors found';
-                return;
-            }
-
-            exhibitorCount.textContent = `${exhibitors.length} exhibitor${exhibitors.length > 1 ? 's' : ''} found`;
-
-            exhibitorsGrid.innerHTML = '';
-            exhibitors.forEach((exhibitor, index) => {
-                exhibitorsGrid.innerHTML += createExhibitorCard(exhibitor, index);
-            });
-
-            exhibitorsGrid.classList.remove('hidden');
-        }
     </script>
 </body>
 </html>
-
