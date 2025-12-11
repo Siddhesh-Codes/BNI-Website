@@ -317,6 +317,48 @@
         .dark .feature-item p {
             color: #9ca3af;
         }
+
+        /* Alphabet Button Hover Effects */
+        .alphabet-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .alphabet-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, #E10028 0%, #c00022 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+            z-index: 0;
+        }
+        .alphabet-btn:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+        .alphabet-btn:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(225, 0, 40, 0.4);
+            border-color: transparent !important;
+        }
+        .alphabet-btn span {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .alphabet-btn:hover span {
+            color: white !important;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transform: scale(1.1);
+        }
+        .dark .alphabet-btn:hover {
+            box-shadow: 0 15px 30px rgba(225, 0, 40, 0.5);
+        }
     </style>
 </head>
 <body class="p-4 md:p-6 min-h-screen transition-colors duration-300 relative">
@@ -333,6 +375,7 @@
         <div class="hidden lg:flex items-center gap-1 px-2">
             <a href="#about" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Why Attend</a>
             <a href="#speakers" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Speakers</a>
+            <a href="#exhibitors" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Exhibitors</a>
             <a href="#sponsors" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Sponsors</a>
             <a href="#agenda" class="nav-link px-4 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition">Agenda</a>
         </div>
@@ -616,6 +659,123 @@
                 <div class="absolute bottom-0 left-0 p-6 text-white">
                     <h3 class="text-2xl font-bold text-white">Amit Kumar</h3>
                     <p class="text-bni-red font-medium text-sm">Networking Expert</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXHIBITORS DIRECTORY SECTION -->
+    <section id="exhibitors" class="max-w-[1600px] mx-auto mb-4">
+        <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div class="text-center mb-10 relative z-10">
+                <span class="text-bni-red font-bold tracking-widest text-xs uppercase">Meet Our Partners</span>
+                <h2 class="text-4xl font-bold mt-2 text-primary">Exhibitors Directory</h2>
+                <p class="text-sm mt-2 text-secondary">Click on any letter to explore exhibitors</p>
+            </div>
+
+            <!-- A-Z Alphabet Grid -->
+            <div class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 lg:grid-cols-13 gap-3 relative z-10">
+                <a href="exhibitors/A.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">A</span>
+                </a>
+                <a href="exhibitors/B.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">B</span>
+                </a>
+                <a href="exhibitors/C.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">C</span>
+                </a>
+                <a href="exhibitors/D.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">D</span>
+                </a>
+                <a href="exhibitors/E.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">E</span>
+                </a>
+                <a href="exhibitors/F.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">F</span>
+                </a>
+                <a href="exhibitors/G.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">G</span>
+                </a>
+                <a href="exhibitors/H.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">H</span>
+                </a>
+                <a href="exhibitors/I.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">I</span>
+                </a>
+                <a href="exhibitors/J.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">J</span>
+                </a>
+                <a href="exhibitors/K.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">K</span>
+                </a>
+                <a href="exhibitors/L.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">L</span>
+                </a>
+                <a href="exhibitors/M.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">M</span>
+                </a>
+                <a href="exhibitors/N.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">N</span>
+                </a>
+                <a href="exhibitors/O.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">O</span>
+                </a>
+                <a href="exhibitors/P.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">P</span>
+                </a>
+                <a href="exhibitors/Q.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">Q</span>
+                </a>
+                <a href="exhibitors/R.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">R</span>
+                </a>
+                <a href="exhibitors/S.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">S</span>
+                </a>
+                <a href="exhibitors/T.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">T</span>
+                </a>
+                <a href="exhibitors/U.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">U</span>
+                </a>
+                <a href="exhibitors/V.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">V</span>
+                </a>
+                <a href="exhibitors/W.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">W</span>
+                </a>
+                <a href="exhibitors/X.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">X</span>
+                </a>
+                <a href="exhibitors/Y.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">Y</span>
+                </a>
+                <a href="exhibitors/Z.html" class="alphabet-btn group flex items-center justify-center aspect-square rounded-2xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-bni-red hover:border-bni-red transition-all duration-300 cursor-pointer">
+                    <span class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">Z</span>
+                </a>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="mt-10 pt-8 border-t border-gray-200 dark:border-white/10 relative z-10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div>
+                        <p class="text-3xl font-bold text-bni-red" id="total-exhibitors">50+</p>
+                        <p class="text-sm text-secondary">Total Exhibitors</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-primary">15+</p>
+                        <p class="text-sm text-secondary">Industries</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-primary">100+</p>
+                        <p class="text-sm text-secondary">Products</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-primary">2</p>
+                        <p class="text-sm text-secondary">Days of Networking</p>
+                    </div>
                 </div>
             </div>
         </div>
