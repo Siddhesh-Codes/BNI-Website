@@ -426,12 +426,20 @@
             const colors = ['bg-bni-red', 'bg-blue-600', 'bg-purple-600', 'bg-green-600', 'bg-orange-500', 'bg-pink-600'];
             const colorClass = colors[index % colors.length];
 
+            // Check if exhibitor has a logo
+            const logoHtml = exhibitor.logo 
+                ? `<img src="${exhibitor.logo}" alt="${exhibitor.company}" class="w-16 h-16 rounded-2xl object-cover flex-shrink-0" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                   <div class="w-16 h-16 ${colorClass} rounded-2xl items-center justify-center flex-shrink-0 hidden">
+                       <span class="text-2xl font-bold text-white">${initials}</span>
+                   </div>`
+                : `<div class="w-16 h-16 ${colorClass} rounded-2xl flex items-center justify-center flex-shrink-0">
+                       <span class="text-2xl font-bold text-white">${initials}</span>
+                   </div>`;
+
             return `
                 <div class="exhibitor-card bento-card-bg rounded-3xl p-6 border border-gray-100 dark:border-white/5">
                     <div class="flex items-start gap-4">
-                        <div class="w-16 h-16 ${colorClass} rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <span class="text-2xl font-bold text-white">${initials}</span>
-                        </div>
+                        ${logoHtml}
                         <div class="flex-1 min-w-0">
                             <h3 class="text-lg font-bold text-primary truncate">${exhibitor.company || exhibitor.name}</h3>
                             <p class="text-sm text-secondary mt-1">${exhibitor.personName || ''}</p>

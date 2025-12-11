@@ -28,8 +28,9 @@
  * - Column A: Mail (Email address)
  * - Column B: Exhibitors Name (Company/Business name)
  * - Column C: Name (Contact person name)
+ * - Column D: Logo URL (Image URL from imgbb, imgur, etc.)
  * 
- * Row 1 should contain headers (Mail, Exhibitors Name, Name)
+ * Row 1 should contain headers (Mail, Exhibitors Name, Name, Logo)
  * Data starts from Row 2
  */
 
@@ -44,6 +45,7 @@ const SHEET_NAME = 'Sheet1';
 const COL_EMAIL = 0;        // Column A
 const COL_COMPANY = 1;      // Column B (Exhibitors Name)
 const COL_PERSON_NAME = 2;  // Column C (Name)
+const COL_LOGO = 3;         // Column D (Logo URL)
 
 // ============================================
 // MAIN WEB APP FUNCTION
@@ -147,7 +149,8 @@ function getExhibitorsByLetter(letter) {
         email: row[COL_EMAIL] ? String(row[COL_EMAIL]).trim() : '',
         company: company,
         name: company, // Alias for compatibility
-        personName: row[COL_PERSON_NAME] ? String(row[COL_PERSON_NAME]).trim() : ''
+        personName: row[COL_PERSON_NAME] ? String(row[COL_PERSON_NAME]).trim() : '',
+        logo: row[COL_LOGO] ? String(row[COL_LOGO]).trim() : ''
       });
     }
   }
