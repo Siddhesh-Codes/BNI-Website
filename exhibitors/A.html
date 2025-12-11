@@ -306,7 +306,7 @@
         // ============================================
         // CONFIGURATION - UPDATE THIS URL AFTER DEPLOYING APPS SCRIPT
         // ============================================
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw0PKU88aYMQNcqmsHxivltAHZujjTKhTTcTCFy8ZKJang1Nc4viw6_hLf5LZJYEGEJ/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzP97BxCSviYIQDzVglVzgiXmO4_pLxjichvV9ArphjT04syy417OoflcwvaanikOFqg/exec';
         
         // Get current letter from filename
         const currentLetter = window.location.pathname.split('/').pop().replace('.html', '').toUpperCase();
@@ -453,7 +453,7 @@
         // Load exhibitors on page load
         document.addEventListener('DOMContentLoaded', () => {
             // Check if Apps Script URL is configured
-            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbw0PKU88aYMQNcqmsHxivltAHZujjTKhTTcTCFy8ZKJang1Nc4viw6_hLf5LZJYEGEJ/exec') {
+            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwzP97BxCSviYIQDzVglVzgiXmO4_pLxjichvV9ArphjT04syy417OoflcwvaanikOFqg/exec') {
                 // For demo/development, show sample data
                 showDemoData();
             } else {
