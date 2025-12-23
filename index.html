@@ -2229,6 +2229,33 @@
         .partner-slide-card:hover .partner-logo-container {
             border-color: rgba(225, 0, 40, 0.6);
         }
+
+        /* ============================================
+           STAKEHOLDER CARDS - BUTTON ALIGNMENT FIX
+           ============================================ */
+        /* Stakeholder cards flex layout - using simple class */
+        .stakeholder-card {
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        /* Fix badge/label stretching in flexbox - constrain width */
+        .stakeholder-card>span {
+            align-self: flex-start !important;
+            display: inline-flex !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Push the CTA button to the bottom */
+        .stakeholder-card>a.stakeholder-cta {
+            margin-top: auto !important;
+        }
+
+        /* Ensure feature grid has consistent space */
+        .stakeholder-card .feature-card-grid {
+            flex-grow: 1;
+        }
     </style>
 </head>
 
@@ -2469,9 +2496,10 @@
 
             <!-- FOR MEMBERS -->
             <div
-                class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-purple-500/50 transition group bento-card relative overflow-hidden">
+                class="stakeholder-card bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-purple-500/50 transition group bento-card relative overflow-hidden">
                 <span
-                    class="inline-block px-3 py-1 rounded-full border border-purple-500 text-purple-500 text-xs font-bold uppercase tracking-wider mb-6">For
+                    class="inline-block px-3 py-1 rounded-full border border-purple-500 text-purple-500 text-xs font-bold uppercase tracking-wider mb-6"
+                    style="border: 1px solid #a855f7 !important;">For
                     Registered BNI Members</span>
                 <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Maximize Your<br>Membership</h2>
 
@@ -2509,7 +2537,7 @@
                 </div>
 
                 <a href="https://link.confluence2026.com/Member-Registration"
-                    class="block w-full text-center bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition"
+                    class="stakeholder-cta block w-full text-center bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition"
                     target="_blank">Member Registration</a>
             </div>
 
@@ -2517,13 +2545,14 @@
 
             <!-- FOR VISITORS -->
             <div
-                class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-blue-500/50 transition group bento-card relative overflow-hidden">
+                class="stakeholder-card bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-blue-500/50 transition group bento-card relative overflow-hidden">
                 <div
                     class="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2">
                 </div>
 
                 <span
-                    class="inline-block px-3 py-1 rounded-full border border-blue-500 text-blue-500 text-xs font-bold uppercase tracking-wider mb-6">For
+                    class="inline-block px-3 py-1 rounded-full border border-blue-500 text-blue-500 text-xs font-bold uppercase tracking-wider mb-6"
+                    style="border: 1px solid #3b82f6 !important;">For
                     Visitors</span>
                 <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Discover Business<br>That Matters</h2>
 
@@ -2560,20 +2589,21 @@
                     </div>
                 </div>
 
-                <a href="https://link.confluence2026.com/Visitor-Booking"
-                    class="block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
+                <a href="https://link.confluence2026.com/Atithi2"
+                    class="stakeholder-cta block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
                     target="_blank">Get Visitor Pass</a>
             </div>
 
             <!-- FOR EXHIBITORS -->
             <div
-                class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-orange-500/50 transition group bento-card relative overflow-hidden">
+                class="stakeholder-card bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-orange-500/50 transition group bento-card relative overflow-hidden">
                 <div
                     class="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2">
                 </div>
 
                 <span
-                    class="inline-block px-3 py-1 rounded-full border border-orange-500 text-orange-500 text-xs font-bold uppercase tracking-wider mb-6">For
+                    class="inline-block px-3 py-1 rounded-full border border-orange-500 text-orange-500 text-xs font-bold uppercase tracking-wider mb-6"
+                    style="border: 1px solid #f97316 !important;">For
                     Exhibitors</span>
                 <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Own the<br>Business Spotlight</h2>
 
@@ -2610,17 +2640,18 @@
                     </div>
                 </div>
 
-                <a href="https://link.confluence2026.com/Book-Stall"
-                    class="block w-full text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white py-4 rounded-2xl font-bold hover:from-orange-600 hover:to-amber-600 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
+                <a href="https://link.confluence2026.com/Visibility3"
+                    class="stakeholder-cta block w-full text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white py-4 rounded-2xl font-bold hover:from-orange-600 hover:to-amber-600 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
                     target="_blank">Register as Exhibitor</a>
             </div>
 
 
             <!-- FOR SPONSORS -->
             <div
-                class="bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-bni-red/50 transition group bento-card relative overflow-hidden">
+                class="stakeholder-card bento-card-bg p-8 md:p-12 rounded-4xl border border-gray-100 dark:border-white/5 hover:border-bni-red/50 transition group bento-card relative overflow-hidden">
                 <span
-                    class="inline-block px-3 py-1 rounded-full border border-bni-red text-bni-red text-xs font-bold uppercase tracking-wider mb-6">For
+                    class="inline-block px-3 py-1 rounded-full border border-bni-red text-bni-red text-xs font-bold uppercase tracking-wider mb-6"
+                    style="border: 1px solid #E10028 !important;">For
                     Sponsors</span>
                 <h2 class="text-4xl md:text-5xl font-bold mb-8 text-primary">Visibility That<br>Drives Business</h2>
 
@@ -2658,7 +2689,7 @@
                 </div>
 
                 <a href="https://view.labdox.com/C26-TS"
-                    class="block w-full text-center bg-gradient-to-r from-amber-500 to-orange-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-amber-600 hover:to-orange-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
+                    class="stakeholder-cta block w-full text-center bg-gradient-to-r from-amber-500 to-orange-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-amber-600 hover:to-orange-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
                     target="_blank">Become a Sponsor</a>
             </div>
 
