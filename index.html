@@ -377,7 +377,7 @@
         .flip-card {
             background-color: transparent;
             perspective: 1000px;
-            min-height: 300px;
+            min-height: 200px;
         }
 
         .flip-card-inner {
@@ -406,7 +406,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1.25rem;
         }
 
         .flip-card-front {
@@ -1196,10 +1196,14 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .dark .carousel-dot {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .carousel-dot.active {
@@ -1208,6 +1212,38 @@
         }
 
         .carousel-dot:hover {
+            background: rgba(225, 0, 40, 0.5);
+        }
+
+        /* Featured Exhibitors Carousel Indicators */
+        .featured-carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .featured-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dark .featured-indicator {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .featured-indicator.active {
+            background: #E10028;
+            transform: scale(1.2);
+        }
+
+        .featured-indicator:hover:not(.active) {
             background: rgba(225, 0, 40, 0.5);
         }
 
@@ -1412,10 +1448,14 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .dark .full-team-carousel-dot {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .full-team-carousel-dot.active {
@@ -2264,11 +2304,11 @@
 
     <!-- FIXED LOGO (Positioned Left of Nav) -->
     <!-- Logo positioned above nav on mobile to avoid overlap -->
-    <a href="#" class="fixed top-[8px] md:top-[18px] left-3 md:left-6 z-50 flex items-center" style="height: 64px;">
+    <a href="#" class="fixed top-[8px] md:top-[14px] left-3 md:left-6 z-50 flex items-center" style="height: 72px;">
         <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/2-300.png" alt="BNI Logo Light"
-            class="h-16 md:h-14 w-auto object-contain dark:hidden">
+            class="h-16 md:h-20 w-auto object-contain dark:hidden">
         <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/1-300.png" alt="BNI Logo Dark"
-            class="h-16 md:h-14 w-auto object-contain hidden dark:block">
+            class="h-16 md:h-20 w-auto object-contain hidden dark:block">
     </a>
 
     <!-- UNIFIED FLOATING NAV (Single Bar for All Devices) -->
@@ -2285,8 +2325,8 @@
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Speakers</a>
             <a href="#exhibitors"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Exhibitors</a>
-            <!-- <a href="#sponsors"
-                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Sponsors</a> -->
+            <a href="#sponsors"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Sponsors</a>
             <a href="#agenda"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Agenda</a>
             <a href="#partners"
@@ -2347,11 +2387,11 @@
                 <span>Exhibitors</span>
                 <i class="fas fa-chevron-right text-sm opacity-50"></i>
             </a>
-            <!-- <a href="#sponsors"
+            <a href="#sponsors"
                 class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
                 <span>Sponsors</span>
                 <i class="fas fa-chevron-right text-sm opacity-50"></i>
-            </a> -->
+            </a>
             <a href="#agenda"
                 class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
                 <span>Agenda</span>
@@ -2450,10 +2490,10 @@
                 <!-- CTA Stack -->
                 <div class="bento-card-bg rounded-4xl p-6 flex-1 flex flex-col gap-3 justify-center bento-card">
                     <!-- Register as Member - Purple with glow -->
-                    <a href="https://link.confluence2026.com/Member-Registration"
+                    <a href="https://link.confluence2026.com/OTR"
                         class="cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(147,51,234,0.6)] hover:scale-[1.02]"
                         target="_blank">
-                        <span>Register as Member</span>
+                        <span>Full Access Registration</span>
                         <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition"></i>
                     </a>
                     <!-- Book Your Stall - Orange with glow -->
@@ -2536,7 +2576,7 @@
                     </div>
                 </div>
 
-                <a href="https://link.confluence2026.com/Member-Registration"
+                <a href="https://link.confluence2026.com/OTR"
                     class="stakeholder-cta block w-full text-center bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition"
                     target="_blank">Member Registration</a>
             </div>
@@ -2928,7 +2968,7 @@
         </div>
     </section>
 
-    <!-- SPONSORS SECTION - TEMPORARILY HIDDEN (uncomment when sponsor website links are available)
+    <!-- SPONSORS SECTION -->
     <section id="sponsors" class="max-w-[1600px] mx-auto mb-4">
         <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
             <div
@@ -2941,7 +2981,7 @@
                 <p class="text-sm mt-2 text-secondary">Hover over cards to connect</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div class="flip-card cursor-pointer">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
@@ -2961,16 +3001,14 @@
                 <div class="flip-card cursor-pointer">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <div
-                                class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-building text-3xl text-black"></i>
-                            </div>
-                            <h3 class="font-bold text-lg text-primary">Kohinoor Group</h3>
-                            <p class="text-sm text-secondary">Powered By</p>
+                            <img src="https://i.ibb.co/cc8kZQkn/image.png" alt="Kallcy Global"
+                                class="h-20 object-contain mb-4">
+                            <h3 class="font-bold text-lg text-primary">Kallcy</h3>
+                            <p class="text-sm text-secondary">Executive Sponsor</p>
                         </div>
                         <div class="flip-card-back">
-                            <h3 class="font-bold text-xl mb-2 text-white">Kohinoor Group</h3>
-                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Real Estate</p>
+                            <h3 class="font-bold text-xl mb-2 text-white">Kallcy</h3>
+                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Executive Sponsor</p>
                             <a href="#"
                                 class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
                         </div>
@@ -3012,10 +3050,29 @@
                         </div>
                     </div>
                 </div>
+                <!-- Sponsor 5 - Placeholder -->
+                <div class="flip-card cursor-pointer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div
+                                class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-handshake text-3xl text-black"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-primary">Kohinoor Group</h3>
+                            <p class="text-sm text-secondary">Powered By</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="font-bold text-xl mb-2 text-white">Kohinoor Group</h3>
+                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Powered By</p>
+                            <a href="#"
+                                class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    END OF SPONSORS SECTION -->
+    <!-- END OF SPONSORS SECTION -->
 
     <!-- AGENDA -->
     <section id="agenda" class="max-w-[1600px] mx-auto mb-4">
@@ -3102,6 +3159,10 @@
                             class="group p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-transparent hover:border-gray-300 dark:hover:border-white/20 hover:bg-white dark:hover:bg-white/10 hover:scale-[1.02] hover:translate-x-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                             <h4 class="font-bold text-lg text-primary group-hover:text-amber-500 transition-colors">
                                 Chapter Performances</h4>
+                        </div>
+                        <div
+                            class="agenda-highlight-item p-4 rounded-2xl bg-bni-red text-white hover:scale-[1.02] hover:shadow-2xl hover:shadow-red-500/30 transition-all duration-300 cursor-pointer">
+                            <h4 class="font-bold text-lg text-white">Stall Visits & Special Reveals</h4>
                         </div>
                         <div
                             class="agenda-highlight-item p-4 rounded-2xl bg-bni-red text-white hover:scale-[1.02] hover:shadow-2xl hover:shadow-red-500/30 transition-all duration-300 cursor-pointer">
@@ -3224,136 +3285,9 @@
 
                 <!-- Carousel Track -->
                 <div id="team-carousel-track" class="team-carousel-track">
-                    <!-- Team Member 1: Amit Kothari -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/p6tVm2XQ/image.png" alt="Amit Kothari" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>AK</text></svg>'">
-                            <h4 class="team-name text-primary">Amit Kothari</h4>
-                            <p class="team-profession">Training & Coaching</p>
-                            <p class="team-company">Labdox Pvt. Ltd</p>
-                            <div class="team-socials">
-                                <a href="http://www.labdox.com/" target="_blank" rel="noopener"
-                                    class="social-btn touch-manipulation">
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a href="mailto:connect@labdox.com" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 2: Dipesh Solanki -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/ymrW5Mpr/image.png" alt="Dipesh Solanki" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>DS</text></svg>'">
-                            <h4 class="team-name text-primary">Dipesh Solanki</h4>
-                            <p class="team-profession">Real Estate Services</p>
-                            <p class="team-company">Square Acres</p>
-                            <div class="team-socials">
-                                <a href="mailto:solanki.dipesh@gmail.com" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 3: Sopan Ghadge -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/tMJVLwv5/image.png" alt="Sopan Ghadge" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>SG</text></svg>'">
-                            <h4 class="team-name text-primary">Sopan Ghadge</h4>
-                            <p class="team-profession">Construction</p>
-                            <p class="team-company">CIVINT Engineering Pvt. Ltd.</p>
-                            <div class="team-socials">
-                                <a href="http://www.civinteng.com/" target="_blank" rel="noopener"
-                                    class="social-btn touch-manipulation">
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a href="mailto:sopan.ghadge@civinteng.com" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 4: Tejas Gandhi -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/zV1Rz96F/image.png" alt="Tejas Gandhi" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>TG</text></svg>'">
-                            <h4 class="team-name text-primary">Tejas Gandhi</h4>
-                            <p class="team-profession">Advertising & Marketing</p>
-                            <p class="team-company">Alpha OBS LLP</p>
-                            <div class="team-socials">
-                                <a href="https://sitejewel.com/" target="_blank" rel="noopener"
-                                    class="social-btn touch-manipulation">
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a href="mailto:tejas@alphaobs.com" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 5: Mohit Mathur -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/rJCTTrm/image.png" alt="Mohit Mathur" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>MM</text></svg>'">
-                            <h4 class="team-name text-primary">Mohit Mathur</h4>
-                            <p class="team-profession">Event & Business Services</p>
-                            <p class="team-company">M SQUARE PRODUCTION, INDIA</p>
-                            <div class="team-socials">
-                                <a href="http://www.msquareproductions.in/" target="_blank" rel="noopener"
-                                    class="social-btn touch-manipulation">
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a href="mailto:MOHITMEVENTPLANNER2009@GMAIL.COM" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 6: Vinay Pawar -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/Z9Q49Nm/image.png" alt="Vinay Pawar" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>VP</text></svg>'">
-                            <h4 class="team-name text-primary">Vinay Pawar</h4>
-                            <p class="team-profession">Event & Business Service</p>
-                            <p class="team-company">Bold Entertainment Pet Ltd</p>
-                            <div class="team-socials">
-                                <a href="http://www.boldmarketing.in/" target="_blank" rel="noopener"
-                                    class="social-btn touch-manipulation">
-                                    <i class="fas fa-globe"></i>
-                                </a>
-                                <a href="mailto:vinay@boldmarketing.in" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team Member 7: Ruchita Jain -->
-                    <div class="team-carousel-slide">
-                        <div class="team-carousel-card">
-                            <img src="https://i.ibb.co/xS0jg5ML/image.png" alt="Ruchita Jain" class="team-photo"
-                                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>RJ</text></svg>'">
-                            <h4 class="team-name text-primary">Ruchita Jain</h4>
-                            <p class="team-profession">Cosmetics / Skin Care</p>
-                            <p class="team-company">Panache Distribution</p>
-                            <div class="team-socials">
-                                <a href="mailto:ruchitagjain555@gmail.com" class="social-btn touch-manipulation">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
+                    <!-- Loading State - will be replaced with dynamic content -->
+                    <div id="featured-team-loading" class="flex items-center justify-center py-12 w-full">
+                        <div class="loading-spinner"></div>
                     </div>
                 </div>
 
@@ -3513,7 +3447,7 @@
         // ============================================
         // CONFIGURATION - REAL API ENDPOINT
         // ============================================
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvpfPBHCtuHfQGa_8Q5ER8MAtdOw0TUQdahhQfzy8ku0v8KjyFhuozChDHg16kOy_iuw/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyaKfmQsUo-h9F4wsWx4CdyKCqydcrGxbtop6pqRqyNQxsBIxx1ErGAasc9zIDOsGIFdQ/exec';
 
         // ============================================
         // 1. COUNTDOWN TIMER
@@ -3993,9 +3927,23 @@
                     </div>`;
             }
 
+            // Stall number display
+            const stallHtml = exhibitor.stallNo ?
+                `<div class="flex items-center gap-2 text-sm text-gray-300 mb-2">
+                    <i class="fas fa-store text-bni-red"></i>
+                    <span>Stall No: <strong>${exhibitor.stallNo}</strong></span>
+                </div>` : '';
+
+            // Category display (replaces hardcoded "EXHIBITOR")
+            const categoryText = exhibitor.category || 'EXHIBITOR';
+
             // Contact name
             const contactHtml = exhibitor.personName ?
                 `<p class="text-sm text-gray-300 mb-2">${exhibitor.personName}</p>` : '';
+
+            // Business tagline display
+            const taglineHtml = exhibitor.tagline ?
+                `<p class="text-sm text-gray-400 italic mb-2">"${exhibitor.tagline}"</p>` : '';
 
             // Summary display
             const summaryHtml = exhibitor.summary ?
@@ -4036,8 +3984,10 @@
                 <div class="exhibitor-card bg-gray-800/90 rounded-2xl p-5 border border-gray-700/50 hover:border-bni-red/50 transition-all duration-300 flex flex-col h-full">
                     ${logoHtml}
                     <h4 class="font-bold text-white text-lg mb-1">${name}</h4>
-                    <p class="text-bni-red font-semibold text-xs uppercase tracking-wider mb-3">EXHIBITOR</p>
+                    <p class="text-bni-red font-semibold text-xs uppercase tracking-wider mb-2">${categoryText}</p>
+                    ${stallHtml}
                     ${contactHtml}
+                    ${taglineHtml}
                     ${summaryHtml}
                     ${emailDisplay}
                     ${buttonsHtml}
@@ -4293,44 +4243,168 @@
 
             // Video iframe initialization handled silently
 
-            // Initialize team carousel on page load
-            initTeamCarousel();
+            // Load featured team members from CMS (this will initialize carousel after loading)
+            loadFeaturedTeamMembers();
         });
 
         // ============================================
         // 6. TEAM CAROUSEL - INFINITE LOOP
         // ============================================
         let teamCarouselIndex = 0;
-        let teamTotalSlides = 7;
+        let teamTotalSlides = 0; // Will be set dynamically based on featured members
         let teamCarouselTouchStartX = 0;
         let teamCarouselTouchEndX = 0;
         let teamCarouselAutoPlay = null;
         let isTransitioning = false;
 
+        // ============================================
+        // 6.1 FEATURED TEAM - CMS DATA FETCH
+        // ============================================
+        const TEAM_API_URL = 'https://script.google.com/macros/s/AKfycbyaKfmQsUo-h9F4wsWx4CdyKCqydcrGxbtop6pqRqyNQxsBIxx1ErGAasc9zIDOsGIFdQ/exec';
+
+        /**
+         * Creates HTML for a single featured team member slide
+         */
+        function createFeaturedSlideHtml(member) {
+            const name = member.name || 'Team Member';
+            const initials = name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
+
+            // Photo handling with fallback
+            const photoHtml = member.photo
+                ? `<img src="${member.photo}" alt="${name}" class="team-photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E10028%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22>${initials}</text></svg>'">`
+                : `<div class="team-photo flex items-center justify-center" style="background: #E10028;"><span class="text-3xl font-bold text-white">${initials}</span></div>`;
+
+            // Social links
+            let socialHtml = '<div class="team-socials">';
+            if (member.website) {
+                const websiteUrl = member.website.startsWith('http') ? member.website : 'https://' + member.website;
+                socialHtml += `<a href="${websiteUrl}" target="_blank" rel="noopener" class="social-btn touch-manipulation"><i class="fas fa-globe"></i></a>`;
+            }
+            if (member.email) {
+                socialHtml += `<a href="mailto:${member.email}" class="social-btn touch-manipulation"><i class="fas fa-envelope"></i></a>`;
+            }
+            socialHtml += '</div>';
+
+            return `
+                <div class="team-carousel-slide">
+                    <div class="team-carousel-card">
+                        ${photoHtml}
+                        <h4 class="team-name text-white">${name}</h4>
+                        ${member.profession ? `<p class="team-profession">${member.profession}</p>` : ''}
+                        ${member.companyName ? `<p class="team-company">${member.companyName}</p>` : ''}
+                        ${socialHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Fetches featured team members from CMS and populates the carousel
+         */
+        async function loadFeaturedTeamMembers() {
+            const track = document.getElementById('team-carousel-track');
+            const loadingEl = document.getElementById('featured-team-loading');
+            const indicatorsContainer = document.getElementById('team-carousel-indicators');
+
+            if (!track) return;
+
+            try {
+                const url = `${TEAM_API_URL}?type=team&_t=${Date.now()}`;
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    redirect: 'follow',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const text = await response.text();
+                let data;
+
+                try {
+                    data = JSON.parse(text);
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    throw new Error('Invalid JSON response');
+                }
+
+                const allTeam = data.team || [];
+
+                // Filter for featured members only
+                const featuredMembers = allTeam.filter(member => member.featured === true);
+
+                if (featuredMembers.length === 0) {
+                    // No featured members, show message
+                    track.innerHTML = `
+                        <div class="flex items-center justify-center py-12 w-full">
+                            <p class="text-gray-500 dark:text-gray-400">No featured team members found</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Update total slides count
+                teamTotalSlides = featuredMembers.length;
+
+                // Generate slides HTML
+                const slidesHtml = featuredMembers.map(member => createFeaturedSlideHtml(member)).join('');
+                track.innerHTML = slidesHtml;
+
+                // Generate carousel indicators dynamically
+                if (indicatorsContainer) {
+                    let indicatorsHtml = '';
+                    for (let i = 0; i < teamTotalSlides; i++) {
+                        indicatorsHtml += `<button class="carousel-dot${i === 0 ? ' active' : ''} touch-manipulation" data-index="${i}" onclick="goToTeamSlide(${i})"></button>`;
+                    }
+                    indicatorsContainer.innerHTML = indicatorsHtml;
+                }
+
+                // Initialize the carousel now that content is loaded
+                initTeamCarousel();
+
+            } catch (error) {
+                console.error('Error fetching featured team members:', error);
+                // Show error state
+                track.innerHTML = `
+                    <div class="flex items-center justify-center py-12 w-full">
+                        <p class="text-gray-500 dark:text-gray-400">Failed to load team members. Please refresh the page.</p>
+                    </div>
+                `;
+            }
+        }
+
         function initTeamCarousel() {
             const track = document.getElementById('team-carousel-track');
             if (!track) return;
 
-            // Clone slides for infinite loop effect
+            // Get slides (should have been populated by loadFeaturedTeamMembers)
             const slides = track.querySelectorAll('.team-carousel-slide');
+            if (slides.length === 0) return;
+
             const slidesArray = Array.from(slides);
 
-            // Clone first 3 slides and append to end
-            slidesArray.slice(0, 3).forEach(slide => {
+            // Clone first 3 slides and append to end (or all if less than 3)
+            const cloneCount = Math.min(3, slidesArray.length);
+            slidesArray.slice(0, cloneCount).forEach(slide => {
                 const clone = slide.cloneNode(true);
                 clone.classList.add('clone');
                 track.appendChild(clone);
             });
 
             // Clone last 3 slides and prepend to beginning
-            slidesArray.slice(-3).reverse().forEach(slide => {
+            slidesArray.slice(-cloneCount).reverse().forEach(slide => {
                 const clone = slide.cloneNode(true);
                 clone.classList.add('clone');
                 track.insertBefore(clone, track.firstChild);
             });
 
-            // Start at index 3 (after the 3 cloned slides at the beginning)
-            teamCarouselIndex = 3;
+            // Start at index equal to clone count (after the cloned slides at the beginning)
+            teamCarouselIndex = cloneCount;
 
             // Add touch event listeners for swipe
             track.addEventListener('touchstart', handleTeamTouchStart, { passive: true });
@@ -4375,6 +4449,9 @@
 
             // Update carousel position without animation initially
             updateTeamCarousel(false);
+
+            // Start auto-play
+            startTeamAutoPlay();
         }
 
         function handleTransitionEnd() {
@@ -4383,16 +4460,15 @@
 
             isTransitioning = false;
 
-            // Total slides including clones: 3 clones + 7 originals + 3 clones = 13
-            // Original slides are at index 3 to 9 (7 slides)
+            const cloneCount = Math.min(3, teamTotalSlides);
 
             // If we've moved to a clone at the end, jump to the real slide at the beginning
-            if (teamCarouselIndex >= teamTotalSlides + 3) {
-                teamCarouselIndex = 3 + (teamCarouselIndex - teamTotalSlides - 3);
+            if (teamCarouselIndex >= teamTotalSlides + cloneCount) {
+                teamCarouselIndex = cloneCount + (teamCarouselIndex - teamTotalSlides - cloneCount);
                 updateTeamCarousel(false);
             }
             // If we've moved to a clone at the beginning, jump to the real slide at the end
-            else if (teamCarouselIndex < 3) {
+            else if (teamCarouselIndex < cloneCount) {
                 teamCarouselIndex = teamTotalSlides + teamCarouselIndex;
                 updateTeamCarousel(false);
             }
@@ -4432,8 +4508,9 @@
         function goToTeamSlide(index) {
             if (isTransitioning) return;
             isTransitioning = true;
-            // Adjust for the 3 cloned slides at the beginning
-            teamCarouselIndex = index + 3;
+            const cloneCount = Math.min(3, teamTotalSlides);
+            // Adjust for the cloned slides at the beginning
+            teamCarouselIndex = index + cloneCount;
             updateTeamCarousel(true);
             stopTeamAutoPlay();
         }
@@ -4442,6 +4519,7 @@
             const track = document.getElementById('team-carousel-track');
             const indicators = document.querySelectorAll('#team-carousel-indicators .carousel-dot');
             const isMobile = window.innerWidth <= 640;
+            const cloneCount = Math.min(3, teamTotalSlides);
 
             if (track) {
                 // Enable/disable transition
@@ -4468,8 +4546,8 @@
                 }
             }
 
-            // Update indicators - map back to original slide index (0-6)
-            let realIndex = teamCarouselIndex - 3;
+            // Update indicators - map back to original slide index
+            let realIndex = teamCarouselIndex - cloneCount;
             if (realIndex < 0) realIndex = teamTotalSlides + realIndex;
             if (realIndex >= teamTotalSlides) realIndex = realIndex - teamTotalSlides;
 
@@ -4507,28 +4585,14 @@
                 });
             }
 
-            // Start auto-play for core team carousel
-            startTeamAutoPlay();
-
-            // Load full team members
+            // Load full team members (non-featured)
             loadFullTeamMembers();
         });
 
         // ============================================
         // 7. FULL TEAM GRID - LIVE DATA FETCH
         // ============================================
-        const TEAM_API_URL = 'https://script.google.com/macros/s/AKfycbxZ1F47AcNUoE2hEdXeJw4gA1-J4L2ik7w92gvfV88meIr1TnWlVAfQY2P3iWVfghD8lg/exec';
-
-        // Featured members shown in carousel (to exclude from grid)
-        const featuredTeamMembers = [
-            'amit kothari',
-            'dipesh solanki',
-            'sopan ghadge',
-            'tejas gandhi',
-            'mohit mathur',
-            'vinay pawar',
-            'ruchita jain'
-        ];
+        // Note: TEAM_API_URL already defined above
 
         async function loadFullTeamMembers() {
             const teamGrid = document.getElementById('full-team-grid');
@@ -4568,13 +4632,9 @@
 
                 const allTeam = data.team || [];
 
-                // Filter out the featured members who are shown in the carousel
-                const remainingTeam = allTeam.filter(member => {
-                    const memberName = (member.name || '').toLowerCase().trim();
-                    return !featuredTeamMembers.some(featured =>
-                        memberName.includes(featured) || featured.includes(memberName)
-                    );
-                });
+                // Filter out the featured members (they are shown in the carousel)
+                // Only show non-featured members in the grid
+                const remainingTeam = allTeam.filter(member => member.featured !== true);
 
                 // Hide loading
                 if (teamLoading) teamLoading.classList.add('hidden');
