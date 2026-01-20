@@ -25,8 +25,8 @@
                     colors: {
                         bni: {
                             red: '#E10028',
-                            dark: '#111111',
-                            gray: '#1F1F1F',
+                            dark: '#0a0a0a', /* Darker premium background */
+                            gray: '#171717',
                             light: '#F3F3F3',
                             accent: '#FF4D6D'
                         }
@@ -36,7 +36,31 @@
                         display: ['Anton', 'sans-serif'],
                     },
                     borderRadius: {
-                        '4xl': '2rem',
+                        '4xl': '2.5rem',
+                    },
+                    animation: {
+                        spotlight: "spotlight 2s ease .75s 1 forwards",
+                        shimmer: "shimmer 2s linear infinite",
+                        "meteor-effect": "meteor 5s linear infinite",
+                        scroll: "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+                    },
+                    keyframes: {
+                        spotlight: {
+                            "0%": { opacity: 0, transform: "translate(-72%, -62%) scale(0.5)" },
+                            "100%": { opacity: 1, transform: "translate(-50%,-40%) scale(1)" },
+                        },
+                        shimmer: {
+                            from: { backgroundPosition: "0 0" },
+                            to: { backgroundPosition: "-200% 0" },
+                        },
+                        meteor: {
+                            "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+                            "70%": { opacity: 1 },
+                            "100%": { transform: "rotate(215deg) translateX(-500px)", opacity: 0 },
+                        },
+                        scroll: {
+                            to: { transform: "translate(calc(-50% - 0.5rem))" },
+                        },
                     }
                 }
             }
@@ -64,6 +88,30 @@
             color: #fff;
         }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E10028;
+        }
+
+        /* Text Selection */
+        ::selection {
+            background: #E10028;
+            color: #ffffff;
+        }
+
         /* Bento Grid Cards - Light/Dark transition */
         .bento-card-bg {
             background-color: #ffffff;
@@ -71,8 +119,10 @@
         }
 
         .dark .bento-card-bg {
-            background-color: #1F1F1F;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: #171717;
+            /* Sligtly lighter than black */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
         }
 
         .bento-card-dark-bg {
@@ -80,22 +130,286 @@
         }
 
         .dark .bento-card-dark-bg {
-            background-color: #111;
+            background-color: #0a0a0a;
         }
 
         /* Hover Effect */
         .bento-card {
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+            transition: transform 0.1s ease, box-shadow 0.4s ease;
         }
 
         .bento-card:hover {
-            transform: translateY(-4px) scale(1.005);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             z-index: 10;
         }
 
         .dark .bento-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Spotlight Effect Utility */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-overlay {
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--x) var(--y), rgba(225, 0, 40, 0.15), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .spotlight-card:hover .spotlight-overlay {
+            opacity: 1;
+        }
+
+        /* Magnetic Button Utility */
+        .magnetic-btn {
+            position: relative;
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ============================================ */
+        /* HERO HEADLINE ANIMATIONS */
+        /* ============================================ */
+
+        /* Hero headline fade-in slide-up animation */
+        .hero-headline {
+            animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes heroFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated Gradient Text */
+        .animated-gradient-text {
+            background: linear-gradient(90deg,
+                    #E10028 0%,
+                    #FF4D6D 25%,
+                    #E10028 50%,
+                    #FF6B8A 75%,
+                    #E10028 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ============================================ */
+        /* PREMIUM TEXT EFFECTS */
+        /* ============================================ */
+
+        /* Shimmer/Shine Effect */
+        .shimmer-text {
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.4) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Premium Gradient Text with Shimmer */
+        .premium-text {
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, #E10028 0%, #FF4D6D 50%, #E10028 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+        }
+
+        .premium-text::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.8) 50%,
+                    transparent 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Fade-in Hover Underline */
+        .hover-underline {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #E10028, #FF4D6D, #E10028);
+            border-radius: 2px;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .hover-underline:hover::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* Combined Premium Effect - Gradient + Shimmer + Hover Underline */
+        .premium-heading {
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, #E10028 0%, #FF4D6D 50%, #E10028 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+            cursor: pointer;
+        }
+
+        .premium-heading::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.5) 50%,
+                    transparent 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: textShimmer 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .premium-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #E10028, #FF4D6D, #F59E0B);
+            border-radius: 2px;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .premium-heading:hover::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* Premium Heading with Wavy Underline (for Speakers & AI Panelists) */
+        .premium-heading-wavy {
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+        }
+
+        .premium-heading-wavy::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.5) 50%,
+                    transparent 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: textShimmer 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .premium-heading-wavy::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 100%;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 12'%3E%3Cpath d='M0,6 Q10,0 20,6 T40,6 T60,6 T80,6 T100,6' fill='none' stroke='%23F59E0B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 50px 12px;
+            animation: wavyMove 2s linear infinite;
+        }
+
+        @keyframes wavyMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 0;
+            }
         }
 
         /* Floating Nav - FIXED SIZE */
@@ -104,12 +418,24 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 0, 0, 0.1);
             min-height: 60px;
+            transition: all 0.3s ease;
         }
 
         .dark .floating-nav {
             background: rgba(31, 31, 31, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
             min-height: 60px;
+        }
+
+        .floating-nav.scrolled {
+            padding: 0.35rem 1rem !important;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .floating-nav.scrolled {
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         /* ============================================ */
@@ -785,6 +1111,20 @@
             border-radius: 9999px;
         }
 
+        .featured-exhibitor-logo-fallback {
+            width: 80px;
+            height: 80px;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #E10028 0%, #FF4D6D 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
         .featured-nav-btn {
             position: absolute;
             top: 50%;
@@ -1245,6 +1585,12 @@
 
         .featured-indicator:hover:not(.active) {
             background: rgba(225, 0, 40, 0.5);
+        }
+
+        /* Hide carousel pagination dots */
+        #featured-carousel-indicators,
+        #partners-carousel-indicators {
+            display: none !important;
         }
 
         /* View All Team Button */
@@ -2040,6 +2386,41 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
+        /* Text Reveal Animation */
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .slide-up-fade {
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger Classes */
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        .delay-500 {
+            animation-delay: 500ms;
+        }
+
         /* Partner Details Button */
         .partner-details-btn {
             display: inline-flex;
@@ -2055,6 +2436,10 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 1rem;
+
+            /* 3D Button Effect */
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .partner-details-btn:hover {
@@ -2321,16 +2706,28 @@
             <a href="#about"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Why
                 Attend</a>
-            <a href="#speakers"
-                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Speakers</a>
-            <a href="#exhibitors"
-                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Exhibitors</a>
             <a href="#sponsors"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Sponsors</a>
+            <a href="#special-guest"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Special
+                Guest</a>
+            <a href="#guests-of-honor"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Guests
+                of Honor</a>
+            <a href="#speakers"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Speakers</a>
+            <a href="#ai-panelists"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">AI
+                Panelists</a>
+            <a href="#exhibitors"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Exhibitors</a>
             <a href="#agenda"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Agenda</a>
             <a href="#partners"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Partners</a>
+            <!-- <a href="#ecosystem-partners"
+                class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Eco
+                System Partners</a> -->
             <a href="#team"
                 class="nav-link px-2.5 py-1.5 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition whitespace-nowrap">Team</a>
         </div>
@@ -2377,19 +2774,34 @@
                 <span>Why Attend</span>
                 <i class="fas fa-chevron-right text-sm opacity-50"></i>
             </a>
+            <a href="#sponsors"
+                class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
+                <span>Sponsors</span>
+                <i class="fas fa-chevron-right text-sm opacity-50"></i>
+            </a>
+            <a href="#special-guest"
+                class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
+                <span>Special Guest</span>
+                <i class="fas fa-chevron-right text-sm opacity-50"></i>
+            </a>
+            <a href="#guests-of-honor"
+                class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
+                <span>Guests of Honor</span>
+                <i class="fas fa-chevron-right text-sm opacity-50"></i>
+            </a>
             <a href="#speakers"
                 class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
                 <span>Speakers</span>
                 <i class="fas fa-chevron-right text-sm opacity-50"></i>
             </a>
+            <a href="#ai-panelists"
+                class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
+                <span>AI Panelists</span>
+                <i class="fas fa-chevron-right text-sm opacity-50"></i>
+            </a>
             <a href="#exhibitors"
                 class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
                 <span>Exhibitors</span>
-                <i class="fas fa-chevron-right text-sm opacity-50"></i>
-            </a>
-            <a href="#sponsors"
-                class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
-                <span>Sponsors</span>
                 <i class="fas fa-chevron-right text-sm opacity-50"></i>
             </a>
             <a href="#agenda"
@@ -2402,6 +2814,11 @@
                 <span>Partners</span>
                 <i class="fas fa-chevron-right text-sm opacity-50"></i>
             </a>
+            <!-- <a href="#ecosystem-partners"
+                class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
+                <span>Eco System Partners</span>
+                <i class="fas fa-chevron-right text-sm opacity-50"></i>
+            </a> -->
             <a href="#team"
                 class="nav-link px-4 py-3 text-base font-medium hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition flex items-center justify-between">
                 <span>Team</span>
@@ -2411,9 +2828,32 @@
     </div>
 
     <!-- BACKGROUND BLOBS -->
-    <div class="blob bg-bni-red w-96 h-96 top-0 left-0 rounded-full mix-blend-multiply dark:mix-blend-normal"></div>
-    <div
-        class="blob bg-blue-600 w-96 h-96 bottom-0 right-0 rounded-full animation-delay-2000 mix-blend-multiply dark:mix-blend-normal">
+    <!-- PREMIUM AURORA BACKGROUND -->
+    <div class="fixed inset-0 -z-10 h-full w-full bg-white dark:bg-black overflow-hidden pointer-events-none">
+        <div
+            class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20">
+        </div>
+
+        <!-- Animated Orbs -->
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-purple-500/20 blur-[120px] animate-spotlight">
+        </div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-500/20 blur-[120px] animate-spotlight"
+            style="animation-delay: 2s"></div>
+        <div
+            class="absolute top-[40%] left-[50%] -translate-x-1/2 w-[30vw] h-[30vw] rounded-full bg-bni-red/10 blur-[100px] animate-pulse">
+        </div>
+
+        <!-- Meteor Effect Container -->
+        <div class="absolute inset-0 overflow-hidden opacity-30">
+            <div
+                class="absolute top-1/2 left-1/2 w-[2px] h-[100px] bg-gradient-to-b from-white to-transparent opacity-0 animate-meteor-effect">
+            </div>
+            <div class="absolute top-1/4 left-3/4 w-[2px] h-[120px] bg-gradient-to-b from-white to-transparent opacity-0 animate-meteor-effect"
+                style="animation-delay: 1.5s"></div>
+            <div class="absolute top-3/4 left-1/4 w-[2px] h-[80px] bg-gradient-to-b from-white to-transparent opacity-0 animate-meteor-effect"
+                style="animation-delay: 3s"></div>
+        </div>
     </div>
 
     <!-- MAIN BENTO GRID HERO -->
@@ -2447,23 +2887,24 @@
                     </div>
 
                     <h1
-                        class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.0] mb-4 text-shadow text-white">
-                        THE FUTURE OF<br>
-                        BUSINESS IS <span class="text-bni-red">HAPPENING HERE.</span>
+                        class="hero-headline text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.0] mb-4 text-white reveal-text">
+                        <span class="block slide-up-fade delay-100">THE FUTURE OF</span>
+                        <span class="block slide-up-fade delay-200">BUSINESS IS</span>
+                        <span class="block slide-up-fade delay-300 animated-gradient-text">HAPPENING HERE.</span>
                     </h1>
 
                     <!-- Stats Row -->
-                    <div class="mt-8 flex flex-wrap gap-4 md:gap-8 border-t border-white/20 pt-6">
+                    <div class="mt-8 flex flex-wrap justify-center gap-8 md:gap-16 border-t border-white/20 pt-6">
                         <div>
-                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">5000+</div>
-                            <div class="text-xs text-gray-300 uppercase tracking-wider">Visitors</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">1000+</div>
+                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">
+                                <span class="counter" data-target="1000" data-suffix="+">0</span>
+                            </div>
                             <div class="text-xs text-gray-300 uppercase tracking-wider">Entrepreneurs</div>
                         </div>
                         <div>
-                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">120+</div>
+                            <div class="text-2xl md:text-3xl font-bold font-sans text-white">
+                                <span class="counter" data-target="100" data-suffix="+">0</span>
+                            </div>
                             <div class="text-xs text-gray-300 uppercase tracking-wider">Stalls</div>
                         </div>
                         <div>
@@ -2491,21 +2932,21 @@
                 <div class="bento-card-bg rounded-4xl p-6 flex-1 flex flex-col gap-3 justify-center bento-card">
                     <!-- Register as Member - Purple with glow -->
                     <a href="https://link.confluence2026.com/OTR"
-                        class="cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(147,51,234,0.6)] hover:scale-[1.02]"
+                        class="magnetic-btn cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(147,51,234,0.6)] hover:scale-[1.02]"
                         target="_blank">
                         <span>Full Access Registration</span>
                         <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition"></i>
                     </a>
                     <!-- Book Your Stall - Orange with glow -->
                     <a href="https://link.confluence2026.com/Visibility3"
-                        class="cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] hover:scale-[1.02]"
+                        class="magnetic-btn cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(249,115,22,0.6)] hover:scale-[1.02]"
                         target="_blank">
                         <span>Book Your Stall</span>
                         <i class="fas fa-store transform group-hover:translate-x-1 transition"></i>
                     </a>
                     <!-- Get Visitor Pass - Teal/Cyan gradient with black text -->
                     <a href="https://link.confluence2026.com/Atithi2"
-                        class="cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-teal-500 via-teal-400 to-cyan-400 text-black rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(20,184,166,0.6)] hover:scale-[1.02]"
+                        class="magnetic-btn cta-glow-btn group flex items-center justify-between p-4 bg-gradient-to-r from-teal-500 via-teal-400 to-cyan-400 text-black rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(20,184,166,0.6)] hover:scale-[1.02]"
                         target="_blank">
                         <span>Get Visitor Pass</span>
                         <i class="fas fa-ticket-alt text-black transform group-hover:translate-x-1 transition"></i>
@@ -2546,8 +2987,8 @@
                 <div class="feature-card-grid mb-10">
                     <div class="feature-item">
                         <div class="text-2xl mb-2">👁️</div>
-                        <h4 class="font-bold text-sm mb-1">Visibility to 5,000+</h4>
-                        <p class="text-xs text-secondary">Discoverable via hub.</p>
+                        <h4 class="font-bold text-sm mb-1">Visibility to 2,000+</h4>
+                        <p class="text-xs text-secondary">Connecting Business Opportunities.</p>
                     </div>
                     <div class="feature-item">
                         <div class="text-2xl mb-2">📥</div>
@@ -2577,8 +3018,8 @@
                 </div>
 
                 <a href="https://link.confluence2026.com/OTR"
-                    class="stakeholder-cta block w-full text-center bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition"
-                    target="_blank">Member Registration</a>
+                    class="magnetic-btn stakeholder-cta block w-full text-center bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition"
+                    target="_blank">Full Access Registration</a>
             </div>
 
 
@@ -2630,7 +3071,7 @@
                 </div>
 
                 <a href="https://link.confluence2026.com/Atithi2"
-                    class="stakeholder-cta block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
+                    class="magnetic-btn stakeholder-cta block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
                     target="_blank">Get Visitor Pass</a>
             </div>
 
@@ -2651,7 +3092,7 @@
                     <div class="feature-item">
                         <div class="text-2xl mb-2">👥</div>
                         <h4 class="font-bold text-sm mb-1">Meet Real Buyers</h4>
-                        <p class="text-xs text-secondary">5,000+ entrepreneurs with intent.</p>
+                        <p class="text-xs text-secondary">1,000++ entrepreneurs with intent.</p>
                     </div>
                     <div class="feature-item">
                         <div class="text-2xl mb-2">🧭</div>
@@ -2666,7 +3107,8 @@
                     <div class="feature-item">
                         <div class="text-2xl mb-2">🌐</div>
                         <h4 class="font-bold text-sm mb-1">Digital Visibility</h4>
-                        <p class="text-xs text-secondary">Featured on hub + newsletters.</p>
+                        <p class="text-xs text-secondary">Visibility through multiple sites and the digital directory.
+                        </p>
                     </div>
                     <div class="feature-item">
                         <div class="text-2xl mb-2">🔗</div>
@@ -2681,7 +3123,7 @@
                 </div>
 
                 <a href="https://link.confluence2026.com/Visibility3"
-                    class="stakeholder-cta block w-full text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white py-4 rounded-2xl font-bold hover:from-orange-600 hover:to-amber-600 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
+                    class="magnetic-btn stakeholder-cta block w-full text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white py-4 rounded-2xl font-bold hover:from-orange-600 hover:to-amber-600 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
                     target="_blank">Register as Exhibitor</a>
             </div>
 
@@ -2729,7 +3171,7 @@
                 </div>
 
                 <a href="https://view.labdox.com/C26-TS"
-                    class="stakeholder-cta block w-full text-center bg-gradient-to-r from-amber-500 to-orange-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-amber-600 hover:to-orange-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
+                    class="magnetic-btn stakeholder-cta block w-full text-center bg-gradient-to-r from-amber-500 to-orange-600 border-2 border-transparent text-white py-4 rounded-2xl font-bold hover:from-amber-600 hover:to-orange-700 hover:scale-105 shadow-lg hover:shadow-xl transition-all"
                     target="_blank">Become a Sponsor</a>
             </div>
 
@@ -2737,55 +3179,468 @@
         </div>
     </section>
 
-    <!-- SPEAKERS SECTION -->
-    <section id="speakers" class="max-w-[1600px] mx-auto mb-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-
-            <!-- Section Title -->
+    <!-- SPONSORS SECTION -->
+    <section id="sponsors" class="max-w-[1600px] mx-auto mb-4">
+        <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
             <div
-                class="bg-gradient-to-br from-rose-600 via-red-700 to-red-900 rounded-4xl p-8 flex flex-col justify-center min-h-[300px]">
-                <h2 class="text-4xl font-bold mb-4 text-white">The<br>Speakers</h2>
-                <p class="text-sm text-white/80">Industry titans sharing playbooks for scale.</p>
+                class="absolute top-0 right-0 w-96 h-96 bg-bni-red/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2">
             </div>
 
-            <!-- Speaker - Vishal Chordia -->
-            <div
-                class="group relative bento-card-bg rounded-4xl overflow-hidden min-h-[400px] bento-card cursor-pointer">
-                <img src="https://media.swipepages.com/2025/12/60b08f41c06b2b00106e0a72/speaker-1-300.png"
-                    alt="Vishal Chordia"
-                    class="absolute inset-0 w-full h-full object-contain transition duration-500 group-hover:scale-105 opacity-90 dark:opacity-80 group-hover:opacity-100 bg-black">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-6 text-white">
-                    <h3 class="text-2xl font-bold text-white">Vishal Chordia</h3>
-                    <p class="text-amber-400 font-medium text-sm">Director - Suhana Masala (Strategy And Marketing)</p>
+            <div class="text-center mb-10">
+                <span class="text-amber-400 font-bold tracking-widest text-xs uppercase">Powering The Event</span>
+                <h2 class="text-4xl font-bold mt-2 text-primary">Our <span class="premium-heading">Sponsors</span></h2>
+                <p class="text-sm mt-2 text-secondary">Hover over cards to connect</p>
+            </div>
+
+            <!-- Title Sponsor - Premium Centered Display with Crown -->
+            <div class="max-w-4xl mx-auto mb-10">
+                <div class="flip-card cursor-pointer mx-auto" style="max-width: 400px; min-height: 280px;">
+                    <div class="flip-card-inner" style="min-height: 280px;">
+                        <div class="flip-card-front"
+                            style="min-height: 280px; background: linear-gradient(145deg, #282828 0%, #141414 100%); border: 2px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 40px rgba(212, 175, 55, 0.25), 0 0 80px rgba(212, 175, 55, 0.1);">
+                            <!-- Crown Badge -->
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-black px-4 py-1.5 rounded-full text-xs font-black flex items-center gap-2 shadow-lg"
+                                style="z-index: 10;">
+                                <i class="fas fa-crown"></i>
+                                <span>TITLE SPONSOR</span>
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/anant-urban-logo-300.png"
+                                alt="Anant Urban" class="h-28 object-contain mb-4"
+                                style="filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));">
+                            <h3 class="font-bold text-2xl" style="color: #D4AF37;">Anant Urban</h3>
+                            <p class="text-base font-semibold mt-2" style="color: #FBBF24;">Powering Confluence 2026</p>
+                        </div>
+                        <div class="flip-card-back"
+                            style="min-height: 280px; background: linear-gradient(135deg, #D4AF37 0%, #FBBF24 50%, #D4AF37 100%);">
+                            <h3 class="font-bold text-2xl mb-2 text-black">Anant Urban</h3>
+                            <p class="text-base font-semibold mb-6 text-black/80">Premium Real Estate Developer</p>
+                            <a href="https://www.ananturban.in/" target="_blank"
+                                class="bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-gray-800 transition-all shadow-lg">
+                                <i class="fas fa-external-link-alt mr-2"></i>Visit Website
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Speaker - Narendra Goidani -->
-            <div
-                class="group relative bento-card-bg rounded-4xl overflow-hidden min-h-[400px] bento-card cursor-pointer">
-                <img src="https://i.ibb.co/cKyk58S6/Picture1.png" alt="Narendra Goidani"
-                    class="absolute inset-0 w-full h-full object-contain transition duration-500 group-hover:scale-105 opacity-90 dark:opacity-80 group-hover:opacity-100 bg-black">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-6 text-white">
-                    <h3 class="text-2xl font-bold text-white">Narendra Goidani</h3>
-                    <p class="text-amber-400 font-medium text-sm">Founder – Life School | Leadership Mentor</p>
+            <!-- Associate Sponsors Section -->
+            <div class="border-t border-gray-200 dark:border-white/10 pt-10">
+                <div class="text-center mb-6">
+                    <span
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-400/20 to-amber-500/20 border border-amber-400/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                        <i class="fas fa-handshake text-amber-400"></i>
+                        Associate Sponsors
+                    </span>
                 </div>
-            </div>
-
-            <!-- Speaker - Deepak Joshi -->
-            <div
-                class="group relative bento-card-bg rounded-4xl overflow-hidden min-h-[400px] bento-card cursor-pointer">
-                <img src="https://i.ibb.co/zWYWmpHG/speaker1.png" alt="Deepak Joshi"
-                    class="absolute inset-0 w-full h-full object-contain transition duration-500 group-hover:scale-105 opacity-90 dark:opacity-80 group-hover:opacity-100 bg-black">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-6 text-white">
-                    <h3 class="text-2xl font-bold text-white">Deepak Joshi</h3>
-                    <p class="text-amber-400 font-medium text-sm">Business & Global Trade Strategist</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                    <div class="flip-card cursor-pointer">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/screenshot-2026-01-11-102833-300.png"
+                                    alt="Kallcy Global" class="h-20 object-contain mb-4">
+                                <h3 class="font-bold text-lg text-primary">Kallcy</h3>
+                                <p class="text-sm text-secondary">Associate Sponsor</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 class="font-bold text-xl mb-2 text-white">Kallcy</h3>
+                                <p class="text-sm font-medium opacity-90 mb-4 text-white">Associate Sponsor</p>
+                                <a href="https://lakshya.confluence2026.com/Kallcy" target="_blank"
+                                    class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card cursor-pointer">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="https://media.swipepages.com/2025/12/60b08f41c06b2b00106e0a72/a2_digital-300.png"
+                                    alt="A2 Digital" class="h-20 object-contain mb-4">
+                                <h3 class="font-bold text-lg text-primary">A2 Digital</h3>
+                                <p class="text-sm text-secondary">Associate Sponsor</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 class="font-bold text-xl mb-2 text-white">A2 Digital</h3>
+                                <p class="text-sm font-medium opacity-90 mb-4 text-white">Associate Sponsor</p>
+                                <a href="https://a2digisolution.com/" target="_blank"
+                                    class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card cursor-pointer">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/screenshot-2026-01-06-141605-300.png"
+                                    alt="KingsBay" class="h-20 object-contain mb-4">
+                                <h3 class="font-bold text-lg text-primary">KingsBay</h3>
+                                <p class="text-sm text-secondary">Associate Sponsor</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 class="font-bold text-xl mb-2 text-white">KingsBay</h3>
+                                <p class="text-sm font-medium opacity-90 mb-4 text-white">Associate Sponsor</p>
+                                <a href="#"
+                                    class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Learn
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card cursor-pointer">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/tab-logo---pdf_page-0001-300.jpg"
+                                    alt="TAB" class="h-20 object-contain mb-4">
+                                <h3 class="font-bold text-lg text-primary">TAB</h3>
+                                <p class="text-sm text-secondary">Associate Sponsor</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 class="font-bold text-xl mb-2 text-white">TAB</h3>
+                                <p class="text-sm font-medium opacity-90 mb-4 text-white">Associate Sponsor</p>
+                                <a href="https://thealternativeboard.in/" target="_blank"
+                                    class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- END OF SPONSORS SECTION -->
+
+    <!-- ========================================= -->
+    <!-- SPECIAL GUEST SECTION - PREMIUM SPOTLIGHT -->
+    <!-- ========================================= -->
+    <section id="special-guest"
+        class="max-w-[1600px] mx-auto mb-4 py-12 sm:py-16 md:py-20 px-3 sm:px-4 rounded-4xl relative overflow-hidden"
+        style="background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);">
+
+        <!-- Animated Background Effects -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] animate-pulse">
+            </div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[100px] animate-pulse"
+                style="animation-delay: 1s;"></div>
+            <div
+                class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(0,0,0,0.8)_100%)]">
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="text-center mb-10 sm:mb-14 relative z-10">
+            <div
+                class="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 via-yellow-400/20 to-amber-500/20 border border-amber-400/40 rounded-full px-6 py-3 mb-6 shadow-lg shadow-amber-500/20">
+                <i class="fas fa-star text-amber-400 animate-pulse"></i>
+                <span class="text-sm font-bold text-amber-400 tracking-widest uppercase">Special Guest</span>
+                <i class="fas fa-star text-amber-400 animate-pulse"></i>
+            </div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+                Distinguished <span class="premium-heading-wavy">Special Guest</span>
+            </h2>
+        </div>
+
+        <!-- Special Guest Card - Matching Guests of Honor Size -->
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="flex justify-center">
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[400px] sm:min-h-[450px] w-full sm:w-[380px] lg:w-[380px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30">
+                    <!-- Border Glow -->
+                    <div
+                        class="absolute -inset-0.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 rounded-3xl opacity-60 group-hover:opacity-100 transition-opacity blur-sm">
+                    </div>
+
+                    <!-- Card Container -->
+                    <div class="relative bg-black rounded-3xl overflow-hidden h-full">
+                        <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/kiranbedi-300.png"
+                            alt="Dr. Kiran Bedi - Special Guest"
+                            class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                            style="object-position: center center;">
+                        <!-- Lighter Gradient Overlay for better visibility -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-70 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+
+                        <!-- Special Guest Badge -->
+                        <div
+                            class="absolute top-4 left-4 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 px-3 py-1 rounded-full text-xs font-bold text-black shadow-lg flex items-center gap-1">
+                            <i class="fas fa-crown"></i> Special Guest
+                        </div>
+
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2">Dr. Kiran Bedi</h3>
+                            <p class="text-amber-400 font-medium text-sm sm:text-base">Former IPS Officer & Former LG
+                                Puducherry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- GUESTS OF HONOR SECTION -->
+    <!-- ========================================= -->
+    <section id="guests-of-honor" class="max-w-[1600px] mx-auto mb-4 py-10 sm:py-14 md:py-18 px-3 sm:px-4">
+
+        <!-- Section Header -->
+        <div class="text-center mb-10 sm:mb-14 relative z-10">
+            <div
+                class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-5 py-2 mb-4">
+                <i class="fas fa-award text-amber-400"></i>
+                <span class="text-sm font-medium text-amber-400">Guests of Honor</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+                Our Esteemed <span class="premium-heading-wavy">Guests of Honor</span>
+            </h2>
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
+                Distinguished leaders gracing our event with their presence
+            </p>
+        </div>
+
+        <!-- Guests Grid - 2 Guests -->
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-8 relative z-10">
+                <!-- Guest 1 - Mr. Amitesh -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[400px] sm:min-h-[450px] w-full sm:w-[calc(50%-1rem)] lg:w-[380px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20">
+                    <!-- Border Glow -->
+                    <div
+                        class="absolute -inset-0.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur-sm">
+                    </div>
+
+                    <div class="relative bg-black rounded-3xl overflow-hidden h-full">
+                        <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/mr-amitesh-300.png"
+                            alt="Mr. Amitesh"
+                            class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                            style="object-position: center center;">
+                        <!-- Lighter overlay for better visibility -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-70 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+
+                        <!-- Guest Badge -->
+                        <div
+                            class="absolute top-4 left-4 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 px-3 py-1 rounded-full text-xs font-bold text-black shadow-lg">
+                            <i class="fas fa-star mr-1"></i> Guest of Honor
+                        </div>
+
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2">Mr. Amitesh Kumar</h3>
+                            <p class="text-amber-400 font-medium text-sm sm:text-base">Commissioner of Police, Pune</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guest 2 - Mr. Hemu -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[400px] sm:min-h-[450px] w-full sm:w-[calc(50%-1rem)] lg:w-[380px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20">
+                    <!-- Border Glow -->
+                    <div
+                        class="absolute -inset-0.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 rounded-3xl opacity-50 group-hover:opacity-100 transition-opacity blur-sm">
+                    </div>
+
+                    <div class="relative bg-black rounded-3xl overflow-hidden h-full">
+                        <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/mr-hemu-300.png"
+                            alt="Mr. Hemu"
+                            class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                            style="object-position: center center;">
+                        <!-- Lighter overlay for better visibility -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-70 transition-opacity">
+                        </div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+
+                        <!-- Guest Badge -->
+                        <div
+                            class="absolute top-4 left-4 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 px-3 py-1 rounded-full text-xs font-bold text-black shadow-lg">
+                            <i class="fas fa-star mr-1"></i> Guest of Honor
+                        </div>
+
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2">Mr. Hemu Suvarna</h3>
+                            <p class="text-amber-400 font-medium text-sm sm:text-base">National Director, BNI India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEAKERS SECTION -->
+    <section id="speakers" class="max-w-[1600px] mx-auto mb-4 py-8 sm:py-12 md:py-16 px-3 sm:px-4 bg-black rounded-4xl">
+        <!-- Section Header - Centered -->
+        <div class="text-center mb-8 sm:mb-12 md:mb-16 relative z-10">
+            <div
+                class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-4">
+                <i class="fas fa-microphone-alt text-amber-400"></i>
+                <span class="text-sm font-medium text-amber-400">Featured Speakers</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white">
+                Learn From <span class="premium-heading-wavy">Industry Leaders</span>
+            </h2>
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
+                Industry titans sharing playbooks for scale and success
+            </p>
+        </div>
+
+        <!-- Speakers Grid - 2 Speakers -->
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 relative z-10">
+                <!-- Speaker 1 - Vishal Chordia -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[350px] sm:min-h-[400px] w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-black">
+                    <img src="https://media.swipepages.com/2025/12/60b08f41c06b2b00106e0a72/speaker-1-300.png"
+                        alt="Vishal Chordia"
+                        class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        style="object-position: top center;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-bni-red/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Vishal Chordia</h3>
+                        <p class="text-amber-400 font-medium text-sm">Director - Suhana Masala (Strategy And Marketing)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Speaker 2 - Narendra Goidani -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[350px] sm:min-h-[400px] w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-black">
+                    <img src="https://i.ibb.co/cKyk58S6/Picture1.png" alt="Narendra Goidani"
+                        class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        style="object-position: top center;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-bni-red/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Narendra Goidani</h3>
+                        <p class="text-amber-400 font-medium text-sm">Founder – Life School | Leadership Mentor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI PANELIST SECTION -->
+    <section id="ai-panelists"
+        class="max-w-[1600px] mx-auto mb-4 py-8 sm:py-12 md:py-16 px-3 sm:px-4 bg-black rounded-4xl">
+        <!-- Section Header - Centered -->
+        <div class="text-center mb-8 sm:mb-12 md:mb-16 relative z-10">
+            <div
+                class="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/30 rounded-full px-4 py-2 mb-4">
+                <i class="fas fa-robot text-purple-400"></i>
+                <span class="text-sm font-medium text-purple-400">AI Panelists</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white">
+                Meet Our <span class="premium-heading-wavy">AI Panelists</span>
+            </h2>
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
+                Expert panelists driving innovation and AI-powered insights
+            </p>
+        </div>
+
+        <!-- AI Panelists Grid -->
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative z-10">
+                <!-- Panelist 1 - Mahaveer Muttha -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[350px] sm:min-h-[400px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-black">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/mahaveer-muttha-gu7gaj.png"
+                        alt="Mahaveer Muttha"
+                        class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        style="object-position: top center;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Mahaveer Muttha</h3>
+                        <p class="text-purple-400 font-medium text-sm">Co-founder | Birdvision</p>
+                    </div>
+                </div>
+
+                <!-- Panelist 2 - Deepak Joshi -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[350px] sm:min-h-[400px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-black">
+                    <img src="https://i.ibb.co/zWYWmpHG/speaker1.png" alt="Deepak Joshi"
+                        class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        style="object-position: top center;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Deepak Joshi</h3>
+                        <p class="text-purple-400 font-medium text-sm">CEO | ShreemEx HUB LLP</p>
+                    </div>
+                </div>
+
+                <!-- Panelist 3 - Kavita Diwedi -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[350px] sm:min-h-[400px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-black">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/kavita-1-300.png"
+                        alt="Kavita Diwedi"
+                        class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        style="object-position: top center;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Kavita Diwedi</h3>
+                        <p class="text-purple-400 font-medium text-sm">Sr.Business Consultant | TCS</p>
+                    </div>
+                </div>
+
+                <!-- Panelist 4 - Gopal Mahajan -->
+                <div
+                    class="group relative overflow-hidden rounded-3xl min-h-[350px] sm:min-h-[400px] cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-black">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/speaker5-300.png"
+                        alt="Gopal Mahajan"
+                        class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        style="object-position: top center;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Gopal Mahajan</h3>
+                        <p class="text-purple-400 font-medium text-sm">Chief Information Officer | Inaiways Technology
+                            Pvt Ltd</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- EXHIBITORS DIRECTORY SECTION -->
     <section id="exhibitors" class="max-w-[1600px] mx-auto mb-4">
@@ -2798,7 +3653,8 @@
 
             <div class="text-center mb-8 relative z-10">
                 <!-- <span class="text-bni-red font-bold tracking-widest text-xs uppercase">Meet Our Partners</span> -->
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-primary">Exhibitors Directory</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-primary"><span
+                        class="premium-heading">Exhibitors</span> Directory</h2>
                 <p class="text-sm mt-2 text-secondary">Tap any letter to view exhibitors</p>
             </div>
 
@@ -2806,7 +3662,7 @@
             <div class="featured-exhibitors-container mb-8 relative z-10">
                 <div class="text-center mb-4">
                     <span
-                        class="inline-flex items-center gap-2 text-bni-red font-bold tracking-widest text-xs uppercase bg-bni-red/10 px-4 py-2 rounded-full">
+                        class="inline-flex items-center gap-2 text-amber-400 font-bold tracking-widest text-xs uppercase bg-bni-red/10 px-4 py-2 rounded-full">
                         <i class="fas fa-star"></i>
                         Featured Exhibitors
                     </span>
@@ -2823,102 +3679,11 @@
                 <!-- Carousel Track -->
                 <div class="featured-carousel-wrapper">
                     <div id="featured-carousel-track" class="featured-carousel-track">
-                        <!-- Lehner Lifttechnik -->
-                        <a href="https://www.lehner-lifttechnik.com/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://media.swipepages.com/2025/12/60b08f41c06b2b00106e0a72/lehnerlifttechnik_logo.jpeg"
-                                alt="Lehner Lifttechnik" class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Lehner Lifttechnik</h4>
-                            <span class="featured-exhibitor-industry">Elevator Technology</span>
-                        </a>
-
-                        <!-- Wooditalia -->
-                        <a href="https://wooditalia.in/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/mrP84Nst/Wooditalia-Logo-Final-FIles-02.jpg" alt="Wooditalia"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Wooditalia</h4>
-                            <span class="featured-exhibitor-industry">Premium Furniture</span>
-                        </a>
-
-                        <!-- Sazinga Digital -->
-                        <a href="https://sazinga.com/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/Fq6qzyk3/image.png" alt="Sazinga Digital"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Sazinga Digital</h4>
-                            <span class="featured-exhibitor-industry">Digital Marketing</span>
-                        </a>
-
-                        <!-- Western Metal Industries -->
-                        <a href="https://westernaluminium.com/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://westernaluminium.com/images/logo.jpg" alt="Western Metal"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Western Metal</h4>
-                            <span class="featured-exhibitor-industry">Aluminium Solutions</span>
-                        </a>
-
-                        <!-- J K Kitchens -->
-                        <a href="https://www.jkkitchens.in/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/HLRHBTBg/logo.jpg" alt="J K Kitchens"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">J K Kitchens</h4>
-                            <span class="featured-exhibitor-industry">Modular Kitchens</span>
-                        </a>
-
-                        <!-- Arham Gold -->
-                        <a href="https://www.justdial.com/Pune/Arham-Gold-House-Of-Managalsutra-Near-Punjab-National-Bank-Raviwar-Peth/020PXX20-XX20-180910200046-E4S5_BZDET"
-                            target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/yn457L5y/Whats-App-Image-2025-12-16-at-20-44-23.jpg"
-                                alt="Arham Gold" class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Arham Gold</h4>
-                            <span class="featured-exhibitor-industry">Gold & Jewelry</span>
-                        </a>
-
-                        <!-- Omcons Engineering -->
-                        <a href="https://www.omconsengineering.in/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/QF37wstG/Whats-App-Image-2025-12-16-at-20-44-19.jpg"
-                                alt="Omcons Engineering" class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Omcons Engineering</h4>
-                            <span class="featured-exhibitor-industry">Engineering Solutions</span>
-                        </a>
-
-                        <!-- Sunhims Ecommerce -->
-                        <a href="https://sunhims.com/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/XH2TGhm/logo2.png" alt="Sunhims Ecommerce"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Sunhims</h4>
-                            <span class="featured-exhibitor-industry">E-Commerce</span>
-                        </a>
-
-                        <!-- Sarvadnya Power Tech -->
-                        <a href="https://sarvadnyapowertech.com/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/5WPKRY26/image.png" alt="Sarvadnya Power Tech"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Sarvadnya Power</h4>
-                            <span class="featured-exhibitor-industry">Power Solutions</span>
-                        </a>
-
-                        <!-- Shrinath & Co (Aasher) -->
-                        <a href="https://aasher.in/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://i.ibb.co/n49RB1q/image.png" alt="Shrinath & Co"
-                                class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Aasher</h4>
-                            <span class="featured-exhibitor-industry">Industrial Equipment</span>
-                        </a>
-
-                        <!-- ARGIO -->
-                        <a href="https://www.argioprivatelimited.com/" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://media.swipepages.com/2025/12/60b08f41c06b2b00106e0a72/icon-01_edited.avif"
-                                alt="ARGIO" class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">ARGIO</h4>
-                            <span class="featured-exhibitor-industry">Business Solutions</span>
-                        </a>
-
-                        <!-- Beige and Bleu -->
-                        <a href="#" target="_blank" class="featured-exhibitor-card">
-                            <img src="https://media.swipepages.com/2025/12/60b08f41c06b2b00106e0a72/logo234-300.jpg"
-                                alt="Beige and Bleu" class="featured-exhibitor-logo">
-                            <h4 class="featured-exhibitor-name">Beige and Bleu</h4>
-                            <span class="featured-exhibitor-industry">Fashion & Lifestyle</span>
-                        </a>
+                        <!-- Loading State -->
+                        <div id="featured-exhibitors-loading" class="flex items-center justify-center py-8 w-full">
+                            <div class="loading-spinner"></div>
+                            <span class="text-secondary ml-3">Loading exhibitors...</span>
+                        </div>
                     </div>
                 </div>
 
@@ -2937,149 +3702,38 @@
             <div class="mt-8 pt-6 border-t border-gray-200 dark:border-white/10 relative z-10" id="exhibitors-stats">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div>
-                        <p class="text-2xl md:text-3xl font-bold text-bni-red" id="total-exhibitors">150+</p>
+                        <p class="text-2xl md:text-3xl font-bold text-bni-red count-up" id="total-exhibitors"
+                            data-target="100" data-suffix="+">0</p>
                         <p class="text-xs md:text-sm text-secondary">Total Exhibitors</p>
                     </div>
                     <div>
-                        <p class="text-2xl md:text-3xl font-bold text-primary">15+</p>
+                        <p class="text-2xl md:text-3xl font-bold text-primary count-up" data-target="200"
+                            data-suffix="+">0</p>
                         <p class="text-xs md:text-sm text-secondary">Industries</p>
                     </div>
                     <div>
-                        <p class="text-2xl md:text-3xl font-bold text-primary">100+</p>
+                        <p class="text-2xl md:text-3xl font-bold text-primary count-up" data-target="100"
+                            data-suffix="+">0</p>
                         <p class="text-xs md:text-sm text-secondary">Products</p>
                     </div>
                     <div>
-                        <p class="text-2xl md:text-3xl font-bold text-primary">2</p>
+                        <p class="text-2xl md:text-3xl font-bold text-primary count-up" data-target="2" data-suffix="">0
+                        </p>
                         <p class="text-xs md:text-sm text-secondary">Days of Networking</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Logo Marquee - Real-time from CMS -->
-            <div class="logo-marquee-container relative z-10">
-                <div id="logo-marquee-track" class="logo-marquee-track">
-                    <!-- Loading state -->
-                    <div id="logo-marquee-loading" class="logo-marquee-loading">
-                        <i class="fas fa-spinner fa-spin mr-2"></i> Loading exhibitor logos...
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
-
-    <!-- SPONSORS SECTION -->
-    <section id="sponsors" class="max-w-[1600px] mx-auto mb-4">
-        <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
-            <div
-                class="absolute top-0 right-0 w-96 h-96 bg-bni-red/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2">
-            </div>
-
-            <div class="text-center mb-10">
-                <span class="text-bni-red font-bold tracking-widest text-xs uppercase">Powering The Event</span>
-                <h2 class="text-4xl font-bold mt-2 text-primary">Our Sponsors</h2>
-                <p class="text-sm mt-2 text-secondary">Hover over cards to connect</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="https://media.swipepages.com/2025/12/5fda04ca24805a0013dd41fb/anant-urban-co-op--300.png"
-                                alt="Anant Urban" class="h-20 object-contain mb-4">
-                            <h3 class="font-bold text-lg text-primary">Anant Urban</h3>
-                            <p class="text-sm text-secondary">Title Sponsor</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="font-bold text-xl mb-2 text-white">Anant Urban</h3>
-                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Banking & Finance</p>
-                            <a href="#"
-                                class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="https://i.ibb.co/cc8kZQkn/image.png" alt="Kallcy Global"
-                                class="h-20 object-contain mb-4">
-                            <h3 class="font-bold text-lg text-primary">Kallcy</h3>
-                            <p class="text-sm text-secondary">Executive Sponsor</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="font-bold text-xl mb-2 text-white">Kallcy</h3>
-                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Executive Sponsor</p>
-                            <a href="#"
-                                class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div
-                                class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-car text-3xl text-black"></i>
-                            </div>
-                            <h3 class="font-bold text-lg text-primary">B.U. Bhandari</h3>
-                            <p class="text-sm text-secondary">Automotive Partner</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="font-bold text-xl mb-2 text-white">B.U. Bhandari</h3>
-                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Automotive</p>
-                            <a href="#"
-                                class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div
-                                class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-laptop-code text-3xl text-black"></i>
-                            </div>
-                            <h3 class="font-bold text-lg text-primary">TechNova</h3>
-                            <p class="text-sm text-secondary">Tech Partner</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="font-bold text-xl mb-2 text-white">TechNova</h3>
-                            <p class="text-sm font-medium opacity-90 mb-4 text-white">IT Services</p>
-                            <a href="#"
-                                class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Sponsor 5 - Placeholder -->
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div
-                                class="h-20 w-20 bg-gray-100 dark:bg-white rounded-full flex items-center justify-center mb-4">
-                                <i class="fas fa-handshake text-3xl text-black"></i>
-                            </div>
-                            <h3 class="font-bold text-lg text-primary">Kohinoor Group</h3>
-                            <p class="text-sm text-secondary">Powered By</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="font-bold text-xl mb-2 text-white">Kohinoor Group</h3>
-                            <p class="text-sm font-medium opacity-90 mb-4 text-white">Powered By</p>
-                            <a href="#"
-                                class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold mb-2">Website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END OF SPONSORS SECTION -->
 
     <!-- AGENDA -->
     <section id="agenda" class="max-w-[1600px] mx-auto mb-4">
         <div class="bento-card-bg rounded-4xl p-6 md:p-12 bento-card relative overflow-hidden">
             <!-- Section Header -->
             <div class="text-center mb-8 relative z-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary">Event Agenda</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">Event <span
+                        class="premium-heading">Agenda</span></h2>
             </div>
 
             <!-- Days Grid - Side by Side -->
@@ -3087,7 +3741,13 @@
                 <!-- Day 1 -->
                 <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card">
                     <div class="flex justify-between items-start mb-8">
-                        <h3 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-bni-red">DAY 01</h3>
+                        <div>
+                            <h3 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-bni-red">DAY 01</h3>
+                            <span
+                                class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">
+                                <i class="fas fa-globe mr-1"></i>Open for All
+                            </span>
+                        </div>
                         <div class="text-right">
                             <div class="text-2xl font-bold text-primary">JAN 21</div>
                             <div class="text-sm font-medium text-secondary">WEDNESDAY</div>
@@ -3126,7 +3786,13 @@
                 <!-- Day 2 -->
                 <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card">
                     <div class="flex justify-between items-start mb-8">
-                        <h3 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-bni-red">DAY 02</h3>
+                        <div>
+                            <h3 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-bni-red">DAY 02</h3>
+                            <span
+                                class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-crown mr-1"></i>Exclusive for BNI Members
+                            </span>
+                        </div>
                         <div class="text-right">
                             <div class="text-2xl font-bold text-primary">JAN 22</div>
                             <div class="text-sm font-medium text-secondary">THURSDAY</div>
@@ -3148,12 +3814,6 @@
                             <h4 class="font-bold text-lg text-primary group-hover:text-amber-400 transition-colors">
                                 Speed
                                 Networking</h4>
-                        </div>
-                        <div
-                            class="group p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-transparent hover:border-gray-300 dark:hover:border-white/20 hover:bg-white dark:hover:bg-white/10 hover:scale-[1.02] hover:translate-x-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                            <h4 class="font-bold text-lg text-primary group-hover:text-amber-400 transition-colors">
-                                Vendor
-                                Empanelment</h4>
                         </div>
                         <div
                             class="group p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-transparent hover:border-gray-300 dark:hover:border-white/20 hover:bg-white dark:hover:bg-white/10 hover:scale-[1.02] hover:translate-x-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
@@ -3199,13 +3859,13 @@
             <!-- Section Header - Enhanced -->
             <div class="text-center mb-12 relative z-10">
                 <span
-                    class="inline-flex items-center gap-2 text-bni-red font-bold tracking-widest text-xs uppercase bg-bni-red/10 px-4 py-2 rounded-full mb-4">
+                    class="inline-flex items-center gap-2 text-amber-400 font-bold tracking-widest text-xs uppercase bg-bni-red/10 px-4 py-2 rounded-full mb-4">
                     <i class="fas fa-handshake"></i>
                     Building Together
                 </span>
                 <h2
                     class="text-4xl md:text-5xl font-bold mt-2 text-primary bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text">
-                    Our Partners</h2>
+                    Our <span class="premium-heading">Partners</span></h2>
                 <p class="text-sm mt-3 text-secondary max-w-md mx-auto">Collaborating with industry leaders to deliver
                     an exceptional Confluence experience</p>
             </div>
@@ -3255,6 +3915,100 @@
         </div>
     </section>
 
+    <!-- ECO SYSTEM PARTNERS SECTION -->
+    <section id="ecosystem-partners" class="max-w-[1600px] mx-auto mb-4">
+        <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
+            <!-- Background Gradient Blobs -->
+            <div
+                class="absolute top-0 right-0 w-96 h-96 bg-green-500/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2">
+            </div>
+
+            <!-- Section Header -->
+            <div class="text-center mb-10 relative z-10">
+                <span
+                    class="inline-flex items-center gap-2 text-green-400 font-bold tracking-widest text-xs uppercase bg-green-500/10 px-4 py-2 rounded-full mb-4">
+                    <i class="fas fa-globe"></i>
+                    Ecosystem Collaboration
+                </span>
+                <h2 class="text-4xl font-bold mt-2 text-primary"><span class="premium-heading">Eco System</span>
+                    Partners</h2>
+                <p class="text-sm mt-2 text-secondary">Strategic alliances powering business growth</p>
+            </div>
+
+            <!-- Partners Grid -->
+            <div class="flex flex-wrap justify-center gap-6 md:gap-8 relative z-10">
+                <!-- Rotary Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/rotary-300.jpeg" alt="Rotary"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary">Rotary</h3>
+
+                </div>
+
+                <!-- MIDC Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/midc-300.jpeg" alt="MIDC"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary">MIDC</h3>
+
+                </div>
+
+                <!-- Mahesh Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/mahesh-300.jpeg" alt="Mahesh"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary text-center">Mahesh Professional Forum</h3>
+
+                </div>
+
+                <!-- Jain Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/images.png" alt="Jain"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary">JITO</h3>
+
+                </div>
+
+                <!-- Upskills Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/upskills-removebg-preview-300.jpg"
+                        alt="Upskills"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary">UPSKILL</h3>
+
+                </div>
+
+                <!-- Power to Give Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/power-to-give-1-300.png"
+                        alt="Power to Give"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary">LIONS CLUB</h3>
+
+                </div>
+
+                <!-- MCCIA Partner -->
+                <div class="flex flex-col items-center p-6 bg-white/5 dark:bg-white/5 rounded-3xl border border-white/10 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300 cursor-pointer group"
+                    style="min-width: 200px; max-width: 280px;">
+                    <img src="https://media.swipepages.com/2026/1/60b08f41c06b2b00106e0a72/mccia-removebg-preview-300.jpg"
+                        alt="MCCIA"
+                        class="h-24 md:h-28 object-contain mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <h3 class="font-bold text-lg text-primary">MCCIA</h3>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- TEAM SECTION -->
     <section id="team" class="max-w-[1600px] mx-auto mb-4">
         <div class="bento-card-bg rounded-4xl p-8 md:p-12 bento-card relative overflow-hidden">
@@ -3267,7 +4021,7 @@
 
             <div class="text-center mb-10 relative z-10">
                 <span class="text-amber-400 font-bold tracking-widest text-xs uppercase">The People Behind</span>
-                <h2 class="text-4xl font-bold mt-2 text-primary">Our Team</h2>
+                <h2 class="text-4xl font-bold mt-2 text-primary">Our <span class="premium-heading">Team</span></h2>
                 <p class="text-sm mt-2 text-secondary">Meet the organizers making Confluence 2026 possible</p>
             </div>
 
@@ -3405,10 +4159,11 @@
                 <div>
                     <h4 class="text-xl font-bold mb-5 text-white">Download</h4>
                     <ul class="space-y-3 text-base opacity-90">
-                        <li><a href="https://view.labdox.com/C26-TS"
+                        <li><a href="https://link.confluence2026.com/SD" target="_blank"
                                 class="hover:underline text-white whitespace-nowrap">Sponsor Deck</a></li>
-                        <li><a href="https://view.labdox.com/C26-TS"
-                                class="hover:underline text-white whitespace-nowrap">Exhibitor Kit</a></li>
+                        <li><a href="https://link.confluence2026.com/ED" target="_blank"
+                                class="hover:underline text-white whitespace-nowrap">Exhibitor Kit</a>
+                        </li>
                         <!-- <li><a href="#" class="hover:underline text-white">Logo Assets</a></li> -->
                     </ul>
                 </div>
@@ -3465,6 +4220,57 @@
         }, 1000);
 
         // ============================================
+        // 1.1 COUNTER ANIMATION
+        // ============================================
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const duration = 2000; // 2 seconds
+                const startTime = performance.now();
+
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function for smooth animation
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = Math.floor(easeOutQuart * target);
+
+                    counter.textContent = current.toLocaleString() + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString() + suffix;
+                    }
+                }
+
+                requestAnimationFrame(updateCounter);
+            });
+        }
+
+        // Trigger counter animation when hero section is in view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe the stats row
+        document.addEventListener('DOMContentLoaded', function () {
+            const statsRow = document.querySelector('.counter')?.parentElement?.parentElement;
+            if (statsRow) {
+                statsObserver.observe(statsRow);
+            }
+        });
+
+        // ============================================
         // 2. THEME TOGGLE LOGIC - FIXED & UNIFIED
         // ============================================
         const htmlElement = document.documentElement;
@@ -3478,10 +4284,10 @@
         // Function to update icon
         function updateThemeIcons(theme) {
             const isDark = theme === 'dark';
-            // If dark mode is active, show moon icon (or sun to switch to light? convention varies, 
-            // but previous code showed moon in dark mode, so keeping that consistency).
-            const iconToAdd = isDark ? 'fa-moon' : 'fa-sun';
-            const iconToRemove = isDark ? 'fa-sun' : 'fa-moon';
+            // When in dark mode, show sun icon (to indicate "switch to light mode")
+            // When in light mode, show moon icon (to indicate "switch to dark mode")
+            const iconToAdd = isDark ? 'fa-sun' : 'fa-moon';
+            const iconToRemove = isDark ? 'fa-moon' : 'fa-sun';
 
             if (themeIconDesktop) {
                 themeIconDesktop.classList.remove(iconToRemove);
@@ -3587,12 +4393,110 @@
         let featuredAutoScrollInterval = null;
         let featuredIsPaused = false;
         let featuredIsTransitioning = false;
+        let allFeaturedExhibitors = []; // Store all exhibitors
 
         function getFeaturedCardsPerView() {
             const width = window.innerWidth;
             if (width >= 1024) return 4;
             if (width >= 640) return 3;
             return 1; // Show 1 card on mobile
+        }
+
+        // Create featured exhibitor card HTML
+        function createFeaturedExhibitorCard(exhibitor) {
+            const name = exhibitor.company || exhibitor.name || exhibitor.exhibitorName || 'Exhibitor';
+            const category = exhibitor.category || exhibitor.industry || 'Exhibitor';
+            const website = exhibitor.website ? (exhibitor.website.startsWith('http') ? exhibitor.website : 'https://' + exhibitor.website) : '#';
+            const logo = exhibitor.logo || '';
+
+            // Generate initials for fallback
+            const initials = name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
+
+            let logoHtml;
+            if (logo) {
+                logoHtml = `<img src="${logo}" alt="${name}" class="featured-exhibitor-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                           <div class="featured-exhibitor-logo-fallback" style="display:none;">${initials}</div>`;
+            } else {
+                logoHtml = `<div class="featured-exhibitor-logo-fallback">${initials}</div>`;
+            }
+
+            return `
+                <a href="${website}" target="_blank" class="featured-exhibitor-card">
+                    ${logoHtml}
+                    <h4 class="featured-exhibitor-name">${name}</h4>
+                    <span class="featured-exhibitor-industry">${category}</span>
+                </a>
+            `;
+        }
+
+        // Load all exhibitors from API
+        async function loadAllFeaturedExhibitors() {
+            const track = document.getElementById('featured-carousel-track');
+            const loading = document.getElementById('featured-exhibitors-loading');
+
+            if (!track) return;
+
+            try {
+                // Fetch exhibitors from all letters A-Z
+                const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+                const allExhibitors = [];
+
+                // Fetch all letters in parallel
+                const promises = alphabet.map(async letter => {
+                    try {
+                        const url = `${APPS_SCRIPT_URL}?letter=${letter}&_t=${Date.now()}`;
+                        const response = await fetch(url, {
+                            method: 'GET',
+                            redirect: 'follow',
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            const text = await response.text();
+                            const data = JSON.parse(text);
+                            return data.exhibitors || [];
+                        }
+                    } catch (e) {
+                        console.error(`Error fetching exhibitors for letter ${letter}:`, e);
+                        return [];
+                    }
+                    return [];
+                });
+
+                const results = await Promise.all(promises);
+                results.forEach(exhibitors => {
+                    exhibitors.forEach(ex => {
+                        // Only add exhibitors with logos for better display
+                        if (ex.logo && ex.logo.trim() !== '') {
+                            allExhibitors.push(ex);
+                        }
+                    });
+                });
+
+                // Store all exhibitors
+                allFeaturedExhibitors = allExhibitors;
+
+                // Hide loading
+                if (loading) loading.style.display = 'none';
+
+                if (allExhibitors.length === 0) {
+                    track.innerHTML = '<div class="text-center py-8 text-secondary w-full">No exhibitors available yet.</div>';
+                    return;
+                }
+
+                // Shuffle exhibitors for variety
+                const shuffled = allExhibitors.sort(() => Math.random() - 0.5);
+
+                // Generate cards HTML
+                track.innerHTML = shuffled.map(ex => createFeaturedExhibitorCard(ex)).join('');
+
+                // Initialize the carousel after cards are loaded
+                setTimeout(initFeaturedCarousel, 100);
+
+            } catch (error) {
+                console.error('Error loading featured exhibitors:', error);
+                if (loading) loading.style.display = 'none';
+                track.innerHTML = '<div class="text-center py-8 text-secondary w-full">Failed to load exhibitors. Please refresh the page.</div>';
+            }
         }
 
         function initFeaturedCarousel() {
@@ -3603,6 +4507,9 @@
             // Get original cards (not clones)
             const originalCards = Array.from(track.querySelectorAll('.featured-exhibitor-card:not(.clone)'));
             const totalCards = originalCards.length;
+
+            if (totalCards === 0) return; // No cards to display
+
             const cardsPerView = getFeaturedCardsPerView();
 
             // Remove any existing clones
@@ -3629,9 +4536,10 @@
             featuredCurrentIndex = cardsPerView;
             updateFeaturedCarouselPosition(false);
 
-            // Create indicators - one per original card (12 dots)
+            // Create indicators - limit to max 15 dots for many exhibitors
             indicatorsContainer.innerHTML = '';
-            for (let i = 0; i < totalCards; i++) {
+            const maxDots = Math.min(totalCards, 15);
+            for (let i = 0; i < maxDots; i++) {
                 const dot = document.createElement('button');
                 dot.className = `featured-indicator ${i === 0 ? 'active' : ''}`;
                 dot.setAttribute('data-index', i);
@@ -3696,9 +4604,10 @@
             let activeIndicator = (featuredCurrentIndex - cardsPerView) % totalCards;
             if (activeIndicator < 0) activeIndicator += totalCards;
 
+            const maxDots = Math.min(totalCards, 15);
             const indicators = document.querySelectorAll('.featured-indicator');
             indicators.forEach((dot, index) => {
-                dot.classList.toggle('active', index === activeIndicator);
+                dot.classList.toggle('active', index === (activeIndicator % maxDots));
             });
         }
 
@@ -3733,8 +4642,11 @@
             }, 4000);
         }
 
-        // Initialize featured carousel on page load
-        setTimeout(initFeaturedCarousel, 100);
+        // Load featured exhibitors on page load (replaces static initialization)
+        document.addEventListener('DOMContentLoaded', function () {
+            loadAllFeaturedExhibitors();
+            initCountUpAnimation();
+        });
 
         // Reinitialize on resize (debounced)
         let featuredResizeTimeout;
@@ -3742,6 +4654,59 @@
             clearTimeout(featuredResizeTimeout);
             featuredResizeTimeout = setTimeout(initFeaturedCarousel, 200);
         });
+
+        // ============================================
+        // COUNT UP ANIMATION FOR STATS
+        // ============================================
+        function initCountUpAnimation() {
+            const countUpElements = document.querySelectorAll('.count-up');
+
+            if (countUpElements.length === 0) return;
+
+            const animateCountUp = (element) => {
+                const target = parseInt(element.getAttribute('data-target')) || 0;
+                const suffix = element.getAttribute('data-suffix') || '';
+                const duration = 2000; // 2 seconds
+                const startTime = performance.now();
+                const startValue = 0;
+
+                const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+
+                const updateCount = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easedProgress = easeOutQuart(progress);
+                    const currentValue = Math.floor(startValue + (target - startValue) * easedProgress);
+
+                    element.textContent = currentValue + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        element.textContent = target + suffix;
+                    }
+                };
+
+                requestAnimationFrame(updateCount);
+            };
+
+            // Use Intersection Observer to trigger animation when visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                        entry.target.classList.add('counted');
+                        animateCountUp(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            countUpElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
 
         // ============================================
         // 4.5. LOGO MARQUEE - Real-time from CMS
@@ -5487,6 +6452,269 @@
             // Small delay to ensure page rendering is complete
             setTimeout(initScrollAnimations, 100);
         });
+    </script>
+
+    <!-- Energised by Labdox Footer -->
+    <footer class="labdox-site-footer">
+        <div class="labdox-footer-content">
+            <div class="labdox-footer-powered">
+                <span class="labdox-powered-text">Energised by</span>
+                <a href="https://academy.labdox.com/Labdox" target="_blank" rel="noopener noreferrer">
+                    <img src="https://media.swipepages.com/2024/7/60b08f41c06b2b00106e0a72/logo_labdox-1689571348486-300.png "
+                        alt="Labdox Logo" class="labdox-footer-logo">
+                </a>
+            </div>
+        </div>
+        <div class="labdox-footer-glow"></div>
+    </footer>
+
+    <style>
+        /* ============== LABDOX FOOTER SECTION ============== */
+        .labdox-site-footer {
+            position: relative;
+            padding: 28px 24px;
+            margin-top: 40px;
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(225, 0, 40, 0.05) 100%);
+            border-top: 1px solid rgba(225, 0, 40, 0.2);
+            overflow: hidden;
+        }
+
+        .labdox-site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #E10028, transparent);
+            animation: labdoxFooterLineGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes labdoxFooterLineGlow {
+
+            0%,
+            100% {
+                width: 150px;
+                opacity: 0.6;
+            }
+
+            50% {
+                width: 300px;
+                opacity: 1;
+            }
+        }
+
+        .labdox-footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .labdox-footer-powered {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(225, 0, 40, 0.08);
+            border-radius: 50px;
+            border: 1px solid rgba(225, 0, 40, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .labdox-footer-powered:hover {
+            background: rgba(225, 0, 40, 0.15);
+            border-color: rgba(225, 0, 40, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(225, 0, 40, 0.2);
+        }
+
+        .labdox-powered-text {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .labdox-footer-logo {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(225, 0, 40, 0.3));
+        }
+
+        .labdox-footer-powered:hover .labdox-footer-logo {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 4px 12px rgba(225, 0, 40, 0.5));
+        }
+
+        .labdox-footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .labdox-footer-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF4D6D 0%, #E10028 50%, #c00022 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: labdoxFooterGradient 3s ease-in-out infinite;
+        }
+
+        @keyframes labdoxFooterGradient {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .labdox-footer-icon {
+            color: #E10028;
+            font-size: 0.9rem;
+            animation: labdoxFooterBoltPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes labdoxFooterBoltPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .labdox-footer-link:hover .labdox-footer-text {
+            text-shadow: 0 0 20px rgba(225, 0, 40, 0.5);
+        }
+
+        .labdox-footer-link:hover .labdox-footer-icon {
+            animation: labdoxFooterBoltPulse 0.5s ease-in-out infinite;
+            color: #FF4D6D;
+        }
+
+        .labdox-footer-glow {
+            position: absolute;
+            bottom: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(225, 0, 40, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .labdox-site-footer {
+                padding: 24px 16px;
+                margin-top: 30px;
+            }
+
+            .labdox-footer-powered {
+                padding: 10px 20px;
+            }
+
+            .labdox-powered-text {
+                font-size: 0.85rem;
+            }
+
+            .labdox-footer-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+    <!-- UI/UX Effects Scripts -->
+    <script>
+        // MAGNETIC BUTTON EFFECT
+        const magneticButtons = document.querySelectorAll('.magnetic-btn');
+        magneticButtons.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                // Strength of the pull
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // SPOTLIGHT CARD EFFECT
+        const spotlightCards = document.querySelectorAll('.spotlight-card');
+        document.addEventListener('mousemove', (e) => {
+            spotlightCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+
+
+        // NAVBAR SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.floating-nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // Add spotlight overlay and tilt class to all bento cards and feature items
+        document.addEventListener('DOMContentLoaded', () => {
+            const bentoCards = document.querySelectorAll('.bento-card');
+            bentoCards.forEach(card => {
+                card.classList.add('spotlight-card');
+                if (!card.querySelector('.spotlight-overlay')) {
+                    const overlay = document.createElement('div');
+                    overlay.classList.add('spotlight-overlay');
+                    card.appendChild(overlay);
+                }
+            });
+            const featureItems = document.querySelectorAll('.feature-item');
+            featureItems.forEach(item => {
+                item.classList.add('spotlight-card');
+                item.style.position = 'relative';
+                item.style.overflow = 'hidden';
+                if (!item.querySelector('.spotlight-overlay')) {
+                    const overlay = document.createElement('div');
+                    overlay.classList.add('spotlight-overlay');
+                    item.appendChild(overlay);
+                }
+            });
+
+
+        });
+
+        // COUNTDOWN TIMER (If not already present or needs update)
+        // ... (preserving existing scripts if any, but since this is new file creation, I will assume basic scripts are needed or handled)
     </script>
 </body>
 
